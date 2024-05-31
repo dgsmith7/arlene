@@ -1,6 +1,5 @@
 import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
+import Capture from "./components/Capture";
 import "./App.css";
 
 function App() {
@@ -19,6 +18,7 @@ function App() {
           </button>
         </div>
       </div>
+      <Capture />
     </div>
   );
 }
