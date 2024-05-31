@@ -2,6 +2,7 @@
   "name": "arlene",
   "private": true,
   "version": "0.0.0",
+  "main": "dist/assets/index-KkPdn41z.js",
   "type": "module",
   "scripts": {
     "dev": "vite",
