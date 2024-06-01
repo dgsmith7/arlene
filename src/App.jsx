@@ -9,29 +9,32 @@ function App() {
 
   const handleSubmit = async (e, problem) => {
     e.preventDefault();
-    console.log("Submitting to AI engine");
+    console.log("Submitting to AI engine", problem, typeof problem);
+
     await getAdvice(problem);
   };
 
   const getAdvice = async (problem) => {
     //  setAdvice(`Here is the advice from the AI engine for the query:${problem}`);
-    //let url = "http://localhost:3000";  // for dev local
+    //let url = "http://localhost:3000"; // for dev local
     let url = "https://avn-ready-backend-app-vyml3.ondigitalocean.app"; // for production
     let headersList = {
       Accept: "*/*",
       "Content-Type": "application/json",
     };
     let bodyContent = { problem: problem };
+    console.log(bodyContent, typeof bodyContent);
 
     await fetch(`${url}/advise`, {
       method: "POST",
       //  credentials: "include", // to send HTTP only cookies
-      body: bodyContent,
+      body: JSON.stringify(bodyContent),
       headers: headersList,
     })
       .then((response) => response.json())
       .then((r) => {
-        setAdvice(r.text);
+        console.log(r);
+        setAdvice(r.text.message.content);
       })
       .catch((error) => {
         console.log("error - ", error);

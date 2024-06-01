@@ -6,14 +6,14 @@ const Capture = ({ onQueryChange }) => {
 
   return (
     <div className="p-4 bg-white text-bacon_black-700 dark:bg-bacon_black-700 dark:text-white">
-      <div className="min-h-screen">
+      <div>
         <div className="flex items-center justify-center p-12">
           <div className="mx-auto w-full max-w-[550px]">
             <form
-              className="bg-gray-500 shadow-2xl rounded px-8 pt-4 pb-4 mb-4"
+              className="bg-gray-500 shadow-2xl rounded px-8 pt-4 pb-4 mb-2"
               onSubmit={(e) => onQueryChange(e, problem.toString())}
             >
-              <div className="mb-5">
+              {/* <div className="mb-5">
                 <label
                   htmlFor="name"
                   className="block text-black text-sm font-bold mb-2"
@@ -57,7 +57,7 @@ const Capture = ({ onQueryChange }) => {
                   placeholder="Enter your subject"
                   className="bg-white text-black shadow appearance-none border rounded w-full py-2 px-3 mb-3 leading-tight focus:outline-none focus:shadow-outline"
                 />
-              </div>
+              </div> */}
               <div className="mb-5">
                 <label
                   htmlFor="message"
@@ -74,7 +74,7 @@ const Capture = ({ onQueryChange }) => {
                   onChange={(e) => setProblem(e.target.value)}
                 ></textarea>
               </div>
-              <div className="flex items-center justify-between mb-5">
+              <div className="flex items-center justify-between mb-1">
                 <button className="inline-block align-baseline font-bold text-lg text-black hover:text-blue-800">
                   Submit
                 </button>
