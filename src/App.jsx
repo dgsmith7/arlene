@@ -4,18 +4,38 @@ import Response from "./components/Response";
 import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0);
   //  const [query, setQuery] = useState("");
   const [advice, setAdvice] = useState("This is where the advice will appear.");
 
-  const handleSubmit = (e, problem) => {
+  const handleSubmit = async (e, problem) => {
     e.preventDefault();
     console.log("Submitting to AI engine");
-    getAdvice(problem);
+    await getAdvice(problem);
   };
 
-  const getAdvice = (problem) => {
+  const getAdvice = async (problem) => {
     setAdvice(`Here is the advice from the AI engine for the query:${problem}`);
+    //let url = "http://localhost:3000";  // for dev local
+    let url = "https://avn-ready-backend-app-vyml3.ondigitalocean.app"; // for production
+    let headersList = {
+      Accept: "*/*",
+      "Content-Type": "application/json",
+    };
+    let bodyContent = { problem };
+
+    await fetch(`${url}/advise`, {
+      method: "POST",
+      //  credentials: "include", // to send HTTP only cookies
+      body: bodyContent,
+      headers: headersList,
+    })
+      .then((response) => response.json())
+      .then((r) => {
+        setAdvice(r.text);
+      })
+      .catch((error) => {
+        console.log("error - ", error);
+      });
   };
 
   return (
@@ -24,13 +44,6 @@ function App() {
         <div className="m-1 text-xl kode-mono-font">Arlene</div>
         <p>Aeronautical Readiness and Logistics Expertise eNginE</p>
       </div>
-      {/* <div className="flex justify-center">
-        <div className="card m-5">
-          <button onClick={() => setCount((count) => count + 1)}>
-            count is {count}
-          </button>
-        </div>
-      </div> */}
       <Capture onQueryChange={handleSubmit} />
       <Response advice={advice} />
     </div>
