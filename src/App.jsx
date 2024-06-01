@@ -21,7 +21,7 @@ function App() {
       Accept: "*/*",
       "Content-Type": "application/json",
     };
-    let bodyContent = { problem };
+    let bodyContent = { problem: problem };
 
     await fetch(`${url}/advise`, {
       method: "POST",
