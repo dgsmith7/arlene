@@ -24,13 +24,13 @@ function App() {
         <div className="m-1 text-xl kode-mono-font">Arlene</div>
         <p>Aeronautical Readiness and Logistics Expertise eNginE</p>
       </div>
-      <div className="flex justify-center">
+      {/* <div className="flex justify-center">
         <div className="card m-5">
           <button onClick={() => setCount((count) => count + 1)}>
             count is {count}
           </button>
         </div>
-      </div>
+      </div> */}
       <Capture onQueryChange={handleSubmit} />
       <Response advice={advice} />
     </div>
