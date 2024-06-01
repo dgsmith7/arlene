@@ -1,18 +1,17 @@
-const handleSubmit = (e) => {
-  e.preventDefault();
-  console.log("Submitting to AI engine");
-};
+import { useState } from "react";
 
-const Capture = () => {
+// eslint-disable-next-line react/prop-types
+const Capture = ({ onQueryChange }) => {
+  const [problem, setProblem] = useState("Please submit a problem.");
+
   return (
     <div className="p-4 bg-white text-bacon_black-700 dark:bg-bacon_black-700 dark:text-white">
-      <div id="spacer" className="h-20"></div>
       <div className="min-h-screen">
         <div className="flex items-center justify-center p-12">
           <div className="mx-auto w-full max-w-[550px]">
             <form
               className="bg-gray-500 shadow-2xl rounded px-8 pt-4 pb-4 mb-4"
-              onSubmit={handleSubmit}
+              onSubmit={(e) => onQueryChange(e, problem.toString())}
             >
               <div className="mb-5">
                 <label
@@ -26,7 +25,7 @@ const Capture = () => {
                   name="name"
                   id="name"
                   placeholder="Full Name"
-                  className="bg-bacon_black-700 dark:bg-white text-white dark:text-bacon_black-700  shadow appearance-none border rounded w-full py-2 px-3 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                  className="bg-white text-black shadow appearance-none border rounded w-full py-2 px-3 mb-3 leading-tight focus:outline-none focus:shadow-outline"
                 />
               </div>
               <div className="mb-5">
@@ -41,7 +40,7 @@ const Capture = () => {
                   name="email"
                   id="email"
                   placeholder="example@domain.com"
-                  className="bg-bacon_black-700 dark:bg-white text-white dark:text-bacon_black-700  shadow appearance-none border rounded w-full py-2 px-3 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                  className="bg-white text-black shadow appearance-none border rounded w-full py-2 px-3 mb-3 leading-tight focus:outline-none focus:shadow-outline"
                 />
               </div>
               <div className="mb-5">
@@ -56,7 +55,7 @@ const Capture = () => {
                   name="subject"
                   id="subject"
                   placeholder="Enter your subject"
-                  className="bg-bacon_black-700 dark:bg-white text-white dark:text-bacon_black-700  shadow appearance-none border rounded w-full py-2 px-3 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                  className="bg-white text-black shadow appearance-none border rounded w-full py-2 px-3 mb-3 leading-tight focus:outline-none focus:shadow-outline"
                 />
               </div>
               <div className="mb-5">
@@ -71,14 +70,12 @@ const Capture = () => {
                   name="message"
                   id="message"
                   placeholder="Describe the problem here in plain text."
-                  className="bg-bacon_black-700 dark:bg-white text-white dark:text-bacon_black-700  shadow appearance-none border rounded w-full py-2 px-3 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                  className="bg-white text-black shadow appearance-none border rounded w-full py-2 px-3 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                  onChange={(e) => setProblem(e.target.value)}
                 ></textarea>
               </div>
               <div className="flex items-center justify-between mb-5">
-                <button
-                  className="inline-block align-baseline font-bold text-lg text-black hover:text-blue-800"
-                  type="submit"
-                >
+                <button className="inline-block align-baseline font-bold text-lg text-black hover:text-blue-800">
                   Submit
                 </button>
               </div>

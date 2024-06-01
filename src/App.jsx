@@ -1,9 +1,22 @@
 import { useState } from "react";
 import Capture from "./components/Capture";
+import Response from "./components/Response";
 import "./App.css";
 
 function App() {
   const [count, setCount] = useState(0);
+  //  const [query, setQuery] = useState("");
+  const [advice, setAdvice] = useState("This is where the advice will appear.");
+
+  const handleSubmit = (e, problem) => {
+    e.preventDefault();
+    console.log("Submitting to AI engine");
+    getAdvice(problem);
+  };
+
+  const getAdvice = (problem) => {
+    setAdvice(`Here is the advice from the AI engine for the query:${problem}`);
+  };
 
   return (
     <div className="grid-rows-2">
@@ -18,7 +31,8 @@ function App() {
           </button>
         </div>
       </div>
-      <Capture />
+      <Capture onQueryChange={handleSubmit} />
+      <Response advice={advice} />
     </div>
   );
 }
