@@ -14,7 +14,7 @@ function App() {
   };
 
   const getAdvice = async (problem) => {
-    setAdvice(`Here is the advice from the AI engine for the query:${problem}`);
+    //  setAdvice(`Here is the advice from the AI engine for the query:${problem}`);
     //let url = "http://localhost:3000";  // for dev local
     let url = "https://avn-ready-backend-app-vyml3.ondigitalocean.app"; // for production
     let headersList = {
