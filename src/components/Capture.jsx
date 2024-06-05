@@ -27,7 +27,7 @@ const Capture = ({ onQueryChange }) => {
               onSubmit={(e) => {
                 updateScope();
                 console.log("submitted");
-                onQueryChange(e, scope.toString());
+                onQueryChange(e, "What is AI"); //scope.toString());
               }}
             >
               {/* {scopeParams.forEach((item) => {
