@@ -31,7 +31,7 @@ function App() {
       body: JSON.stringify(bodyContent),
       headers: headersList,
     })
-      .then((response) => response.json())
+      .then((response) => response.text())
       .then((r) => {
         console.log(r);
         setAdvice(r.text.message.content);
