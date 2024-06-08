@@ -3,19 +3,29 @@ import { useState } from "react";
 // eslint-disable-next-line react/prop-types
 const Capture = ({ onQueryChange }) => {
   const [scopeParams, setScopeParams] = useState([]);
-  // onChange={(e) => setProblem(e.target.value)}
 
-  const updateScope = (title, val) => {
-    setScopeParams(
-      scopeParams.map((item) => {
-        if (item.title == title) {
-          return { title: title, val: val };
-        } else {
-          return item;
-        }
-      })
-    );
-  };
+  function updateScope(title, val) {
+    let newArray = [...scopeParams];
+    let included = false;
+    newArray.forEach((item, idx) => {
+      console.log(item);
+      if (item.title.toString() == title.toString()) {
+        newArray[idx] = { title: title, val: val };
+        included = true;
+      }
+    });
+    if (!included) {
+      newArray.push({ title: title, val: val });
+    }
+    console.log(newArray);
+    setScopeParams(newArray);
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    console.log("submitted scope parameters:", scopeParams);
+    onQueryChange(e, scopeParams); //scope.toString());
+  }
 
   return (
     <div className="p-4 bg-white text-bacon_black-700 dark:bg-bacon_black-700 dark:text-white">
@@ -24,15 +34,8 @@ const Capture = ({ onQueryChange }) => {
           <div className="mx-auto w-full max-w-[550px]">
             <form
               className="bg-gray-500 shadow-2xl rounded px-8 pt-4 pb-4 mb-2"
-              onSubmit={(e) => {
-                updateScope();
-                console.log("submitted");
-                onQueryChange(e, "What is AI"); //scope.toString());
-              }}
+              onSubmit={(e) => handleSubmit(e)}
             >
-              {/* {scopeParams.forEach((item) => {
-                console.log(item);
-              })} */}
               <div>OBJECTIVES</div>
               <div className="mb-2">
                 <div className="block text-sm font-bold mb-2">
@@ -48,6 +51,7 @@ const Capture = ({ onQueryChange }) => {
                     id="costs"
                     value="costs"
                     //className="bg-white text-black shadow appearance-none border rounded w-full py-2 px-3 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                    onChange={(e) => updateScope("objective", e.target.value)}
                   />
                   Minimize maintenance costs
                 </label>
@@ -61,6 +65,7 @@ const Capture = ({ onQueryChange }) => {
                     id="readiness"
                     value="readiness"
                     //                    className="bg-white text-black shadow appearance-none border rounded w-full py-2 px-3 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                    onChange={(e) => updateScope("objective", e.target.value)}
                   />
                   Maximize operational readiness
                 </label>
@@ -74,19 +79,21 @@ const Capture = ({ onQueryChange }) => {
                     id="downtime"
                     value="downtime"
                     //                   className="bg-white text-black shadow appearance-none border rounded w-full py-2 px-3 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                    onChange={(e) => updateScope("objective", e.target.value)}
                   />
                   Minimize downtime
                 </label>
                 <label
-                  htmlFor="otherObjective"
+                  htmlFor="objective"
                   className="block text-black text-sm font-bold mb-2"
                 >
                   <input
                     type="radio"
                     name="objective"
-                    id="otherObjective"
-                    value="otherObjective"
+                    id="objective"
+                    value="otherSeeText"
                     //                  className="bg-white text-black shadow appearance-none border rounded w-full py-2 px-3 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                    onChange={(e) => updateScope("objective", e.target.value)}
                   />
                   <span>
                     Other
@@ -96,6 +103,9 @@ const Capture = ({ onQueryChange }) => {
                       id="otherObjectiveText"
                       placeholder="Please specify"
                       className="bg-white text-black shadow appearance-none border rounded w-full py-2 px-3 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                      onChange={(e) =>
+                        updateScope("otherObjectiveText", e.target.value)
+                      }
                     />
                   </span>
                 </label>
@@ -114,9 +124,9 @@ const Capture = ({ onQueryChange }) => {
                   id="secondaryObjective"
                   placeholder="Please specify"
                   className="bg-white text-black shadow appearance-none border rounded w-full py-2 px-3 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-                  onChange={(e) => {
-                    setScopeParams({ secondaryObjective: e.target.value });
-                  }}
+                  onChange={(e) =>
+                    updateScope("secondaryObjective", e.target.value)
+                  }
                 />
               </div>
               <div>CONSTRAINTS</div>
@@ -134,6 +144,7 @@ const Capture = ({ onQueryChange }) => {
                     id="budget"
                     value="budget"
                     //className="bg-white text-black shadow appearance-none border rounded w-full py-2 px-3 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                    onChange={(e) => updateScope("constraints", e.target.value)}
                   />
                   Budget limitations
                 </label>
@@ -147,6 +158,7 @@ const Capture = ({ onQueryChange }) => {
                     id="mxTime"
                     value="mxTime"
                     //                    className="bg-white text-black shadow appearance-none border rounded w-full py-2 px-3 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                    onChange={(e) => updateScope("constraints", e.target.value)}
                   />
                   Maintenance time constraints
                 </label>
@@ -160,6 +172,7 @@ const Capture = ({ onQueryChange }) => {
                     id="numAircraftAvail"
                     value="numAircraftAvail"
                     //                   className="bg-white text-black shadow appearance-none border rounded w-full py-2 px-3 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                    onChange={(e) => updateScope("constraints", e.target.value)}
                   />
                   Number of available aircraft
                 </label>
@@ -173,6 +186,7 @@ const Capture = ({ onQueryChange }) => {
                     id="flightHours"
                     value="flightHours"
                     //                    className="bg-white text-black shadow appearance-none border rounded w-full py-2 px-3 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                    onChange={(e) => updateScope("constraints", e.target.value)}
                   />
                   Flight hours limits
                 </label>
@@ -186,28 +200,33 @@ const Capture = ({ onQueryChange }) => {
                     id="personnel"
                     value="personnel"
                     //                    className="bg-white text-black shadow appearance-none border rounded w-full py-2 px-3 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                    onChange={(e) => updateScope("constraints", e.target.value)}
                   />
                   Personnel
                 </label>
                 <label
-                  htmlFor="otherConstraint"
+                  htmlFor="constraints"
                   className="block text-black text-sm font-bold mb-2"
                 >
                   <input
                     type="radio"
                     name="constraints"
-                    id="otherConstraint"
-                    value="otherConstraint"
+                    id="constraints"
+                    value="otherSeeText"
                     //                  className="bg-white text-black shadow appearance-none border rounded w-full py-2 px-3 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                    onChange={(e) => updateScope("constraints", e.target.value)}
                   />
                   <span>
                     {"   "} Other
                     <input
                       type="text"
-                      name="otherConstraintText"
-                      id="otherConstraintText"
+                      name="otherConstraintsText"
+                      id="otherConstraintsText"
                       placeholder="Please specify"
                       className="bg-white text-black shadow appearance-none border rounded w-full py-2 px-3 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                      onChange={(e) =>
+                        updateScope("otherConstraintsText", e.target.value)
+                      }
                     />
                   </span>
                 </label>
@@ -226,6 +245,7 @@ const Capture = ({ onQueryChange }) => {
                   id="compliance"
                   placeholder="Please specify"
                   className="bg-white text-black shadow appearance-none border rounded w-full py-2 px-3 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                  onChange={(e) => updateScope("compliance", e.target.value)}
                 />
               </div>
               <div className="mb-2">
@@ -242,6 +262,9 @@ const Capture = ({ onQueryChange }) => {
                   id="opsContraints"
                   placeholder="Please specify"
                   className="bg-white text-black shadow appearance-none border rounded w-full py-2 px-3 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                  onChange={(e) =>
+                    updateScope("opsConstraints", e.target.value)
+                  }
                 />
               </div>
               <div>KNOWN RELEVANT DATA</div>
@@ -260,6 +283,7 @@ const Capture = ({ onQueryChange }) => {
                   name="totalSystems"
                   id="totalSystems"
                   className="bg-white text-black shadow appearance-none border rounded w-full py-2 px-3 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                  onChange={(e) => updateScope("totalSystems", e.target.value)}
                 />
               </div>
               <div>
@@ -274,6 +298,7 @@ const Capture = ({ onQueryChange }) => {
                   name="systemTypes"
                   id="systemTypes"
                   className="bg-white text-black shadow appearance-none border rounded w-full py-2 px-3 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                  onChange={(e) => updateScope("systemTypes", e.target.value)}
                 />
               </div>
               <div>
@@ -289,6 +314,7 @@ const Capture = ({ onQueryChange }) => {
                   name="mbtf"
                   id="mbtf"
                   className="bg-white text-black shadow appearance-none border rounded w-full py-2 px-3 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                  onChange={(e) => updateScope("mtbf", e.target.value)}
                 />
               </div>
               <div>
@@ -303,6 +329,7 @@ const Capture = ({ onQueryChange }) => {
                   name="avgOpHrs"
                   id="avgOpHrs"
                   className="bg-white text-black shadow appearance-none border rounded w-full py-2 px-3 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                  onChange={(e) => updateScope("avgOpsHrs", e.target.value)}
                 />
               </div>
               <div className="block text-sm font-bold mb-2">
@@ -320,6 +347,7 @@ const Capture = ({ onQueryChange }) => {
                   name="mxIntervals"
                   id="mxIntervals"
                   className="bg-white text-black shadow appearance-none border rounded w-full py-2 px-3 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                  onChange={(e) => updateScope("mxIntervals", e.target.value)}
                 />
               </div>
               <div>
@@ -334,6 +362,7 @@ const Capture = ({ onQueryChange }) => {
                   name="turnAround"
                   id="turnAround"
                   className="bg-white text-black shadow appearance-none border rounded w-full py-2 px-3 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                  onChange={(e) => updateScope("turnAround", e.target.value)}
                 />
               </div>
               <div>
@@ -348,6 +377,7 @@ const Capture = ({ onQueryChange }) => {
                   name="recentChanges"
                   id="recentChanges"
                   className="bg-white text-black shadow appearance-none border rounded w-full py-2 px-3 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                  onChange={(e) => updateScope("recentChanges", e.target.value)}
                 />
               </div>
               <div>
@@ -363,6 +393,7 @@ const Capture = ({ onQueryChange }) => {
                   name="perfData"
                   id="perfData"
                   className="bg-white text-black shadow appearance-none border rounded w-full py-2 px-3 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                  onChange={(e) => updateScope("perfData", e.target.value)}
                 />
               </div>
 
@@ -377,10 +408,14 @@ const Capture = ({ onQueryChange }) => {
                 >
                   <input
                     type="radio"
-                    name="optimazation"
+                    name="optimization"
                     id="schedOptim"
                     value="schedOptim"
                     //className="bg-white text-black shadow appearance-none border rounded w-full py-2 px-3 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                    // onChange={(e) => setProblem(e.target.value)}
+                    onChange={(e) =>
+                      updateScope("optimization", e.target.value)
+                    }
                   />
                   Scheduling optimization
                 </label>
@@ -390,10 +425,13 @@ const Capture = ({ onQueryChange }) => {
                 >
                   <input
                     type="radio"
-                    name="optimazation"
+                    name="optimization"
                     id="rsrcAlloc"
                     value="rsrcAlloc"
                     //                    className="bg-white text-black shadow appearance-none border rounded w-full py-2 px-3 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                    onChange={(e) =>
+                      updateScope("optimization", e.target.value)
+                    }
                   />
                   Resource allocation
                 </label>
@@ -403,10 +441,13 @@ const Capture = ({ onQueryChange }) => {
                 >
                   <input
                     type="radio"
-                    name="optimazation"
+                    name="optimization"
                     id="routeOptim"
                     value="routeOptim"
                     //                   className="bg-white text-black shadow appearance-none border rounded w-full py-2 px-3 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                    onChange={(e) =>
+                      updateScope("optimization", e.target.value)
+                    }
                   />
                   Route optimization
                 </label>
@@ -416,10 +457,13 @@ const Capture = ({ onQueryChange }) => {
                 >
                   <input
                     type="radio"
-                    name="optimazation"
+                    name="optimization"
                     id="inventoryMgmt"
                     value="inventoryMgmt"
                     //                    className="bg-white text-black shadow appearance-none border rounded w-full py-2 px-3 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                    onChange={(e) =>
+                      updateScope("optimization", e.target.value)
+                    }
                   />
                   Inventory management
                 </label>
@@ -429,10 +473,13 @@ const Capture = ({ onQueryChange }) => {
                 >
                   <input
                     type="radio"
-                    name="optimazation"
+                    name="optimization"
                     id="riskMitig"
                     value="riskMitig"
                     //                    className="bg-white text-black shadow appearance-none border rounded w-full py-2 px-3 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                    onChange={(e) =>
+                      updateScope("optimization", e.target.value)
+                    }
                   />
                   Risk assessment and mitigation
                 </label>
@@ -442,10 +489,13 @@ const Capture = ({ onQueryChange }) => {
                 >
                   <input
                     type="radio"
-                    name="optimazation"
+                    name="optimization"
                     id="otherOptim"
-                    value="otherOptim"
+                    value="otherSeeText"
                     //                  className="bg-white text-black shadow appearance-none border rounded w-full py-2 px-3 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                    onChange={(e) =>
+                      updateScope("optimization", e.target.value)
+                    }
                   />
                   <span>
                     {"   "} Other
@@ -455,6 +505,9 @@ const Capture = ({ onQueryChange }) => {
                       id="otherOptimText"
                       placeholder="Please specify"
                       className="bg-white text-black shadow appearance-none border rounded w-full py-2 px-3 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                      onChange={(e) =>
+                        updateScope("otherOptimText", e.target.value)
+                      }
                     />
                   </span>
                 </label>
@@ -476,6 +529,7 @@ const Capture = ({ onQueryChange }) => {
                   name="approach"
                   id="approach"
                   className="bg-white text-black shadow appearance-none border rounded w-full py-2 px-3 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                  onChange={(e) => updateScope("approach", e.target.value)}
                 />
               </div>
               <div>
@@ -492,6 +546,7 @@ const Capture = ({ onQueryChange }) => {
                   name="uncertainties"
                   id="uncertainties"
                   className="bg-white text-black shadow appearance-none border rounded w-full py-2 px-3 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                  onChange={(e) => updateScope("uncertainties", e.target.value)}
                 />
               </div>
               <div>
@@ -506,6 +561,7 @@ const Capture = ({ onQueryChange }) => {
                   name="realTime"
                   id="realTime"
                   className="bg-white text-black shadow appearance-none border rounded w-full py-2 px-3 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                  onChange={(e) => updateScope("realTime", e.target.value)}
                 />
               </div>
               <div>
@@ -521,6 +577,7 @@ const Capture = ({ onQueryChange }) => {
                   name="stakeHolders"
                   id="stakeHolders"
                   className="bg-white text-black shadow appearance-none border rounded w-full py-2 px-3 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                  onChange={(e) => updateScope("stakeHolders", e.target.value)}
                 />
               </div>
 
@@ -539,6 +596,7 @@ const Capture = ({ onQueryChange }) => {
                   id="report"
                   value="report"
                   //className="bg-white text-black shadow appearance-none border rounded w-full py-2 px-3 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                  onChange={(e) => updateScope("solution", e.target.value)}
                 />
                 Detailed report
               </label>
@@ -552,6 +610,7 @@ const Capture = ({ onQueryChange }) => {
                   id="Dashboard"
                   value="Dashboard"
                   //                    className="bg-white text-black shadow appearance-none border rounded w-full py-2 px-3 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                  onChange={(e) => updateScope("solution", e.target.value)}
                 />
                 Dashboard with visualizations
               </label>
@@ -565,6 +624,7 @@ const Capture = ({ onQueryChange }) => {
                   id="steps"
                   value="steps"
                   //                   className="bg-white text-black shadow appearance-none border rounded w-full py-2 px-3 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                  onChange={(e) => updateScope("solution", e.target.value)}
                 />
                 Actionable steps and recommendations
               </label>
@@ -578,6 +638,7 @@ const Capture = ({ onQueryChange }) => {
                   id="chart"
                   value="chart"
                   //                   className="bg-white text-black shadow appearance-none border rounded w-full py-2 px-3 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                  onChange={(e) => updateScope("solution", e.target.value)}
                 />
                 Timeline chart or workflow chart
               </label>
@@ -589,8 +650,9 @@ const Capture = ({ onQueryChange }) => {
                   type="radio"
                   name="solution"
                   id="otherFormat"
-                  value="otherFormat"
+                  value="otherSeeText"
                   //                  className="bg-white text-black shadow appearance-none border rounded w-full py-2 px-3 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                  onChange={(e) => updateScope("solution", e.target.value)}
                 />
                 <span>
                   Other
@@ -600,9 +662,40 @@ const Capture = ({ onQueryChange }) => {
                     id="otherFormatText"
                     placeholder="Please specify"
                     className="bg-white text-black shadow appearance-none border rounded w-full py-2 px-3 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                    onChange={(e) =>
+                      updateScope("otherFormatText", e.target.value)
+                    }
                   />
                 </span>
               </label>
+              <label
+                htmlFor="timeFrame"
+                className="block text-black text-sm font-bold mb-2"
+              >
+                What is the desired time frame for implementing the optimized
+                solution?
+              </label>
+              <input
+                type="text"
+                name="timeFrame"
+                id="timeFrame"
+                className="bg-white text-black shadow appearance-none border rounded w-full py-2 px-3 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                onChange={(e) => updateScope("timeFrame", e.target.value)}
+              />
+              <label
+                htmlFor="metrics"
+                className="block text-black text-sm font-bold mb-2"
+              >
+                Are there any specific metrics or KPIs you would like to track
+                to measure the success of the solution?
+              </label>
+              <input
+                type="text"
+                name="metrics"
+                id="metrics"
+                className="bg-white text-black shadow appearance-none border rounded w-full py-2 px-3 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                onChange={(e) => updateScope("metrics", e.target.value)}
+              />
 
               <div>GENERAL INFORMATION</div>
               <div>
@@ -618,6 +711,7 @@ const Capture = ({ onQueryChange }) => {
                   name="description"
                   id="description"
                   className="bg-white text-black shadow appearance-none border rounded w-full py-2 px-3 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                  onChange={(e) => updateScope("description", e.target.value)}
                 />
               </div>
               <div>
@@ -632,6 +726,7 @@ const Capture = ({ onQueryChange }) => {
                   name="primaryUsers"
                   id="primaryUsers"
                   className="bg-white text-black shadow appearance-none border rounded w-full py-2 px-3 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                  onChange={(e) => updateScope("primaryUsers", e.target.value)}
                 />
               </div>
               <div>
@@ -647,70 +742,9 @@ const Capture = ({ onQueryChange }) => {
                   name="comments"
                   id="comments"
                   className="bg-white text-black shadow appearance-none border rounded w-full py-2 px-3 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                  onChange={(e) => updateScope("comments", e.target.value)}
                 />
               </div>
-
-              {/* <div className="mb-5">
-                <label
-                  htmlFor="name"
-                  className="block text-black text-sm font-bold mb-2"
-                >
-                  Full Name
-                </label>
-                <input
-                  type="text"
-                  name="name"
-                  id="name"
-                  placeholder="Full Name"
-                  className="bg-white text-black shadow appearance-none border rounded w-full py-2 px-3 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-                />
-              </div>
-              <div className="mb-5">
-                <label
-                  htmlFor="email"
-                  className="block text-black text-sm font-bold mb-2"
-                >
-                  Email Address
-                </label>
-                <input
-                  type="email"
-                  name="email"
-                  id="email"
-                  placeholder="example@domain.com"
-                  className="bg-white text-black shadow appearance-none border rounded w-full py-2 px-3 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-                />
-              </div>
-              <div className="mb-5">
-                <label
-                  htmlFor="subject"
-                  className="block text-black text-sm font-bold mb-2"
-                >
-                  Subject
-                </label>
-                <input
-                  type="text"
-                  name="subject"
-                  id="subject"
-                  placeholder="Enter your subject"
-                  className="bg-white text-black shadow appearance-none border rounded w-full py-2 px-3 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-                />
-              </div> */}
-              {/* <div className="mb-5">
-                <label
-                  htmlFor="message"
-                  className="block text-black text-sm font-bold mb-2"
-                >
-                  Decription of problem
-                </label>
-                <textarea
-                  rows="4"
-                  name="message"
-                  id="message"
-                  placeholder="Describe the problem here in plain text."
-                  className="bg-white text-black shadow appearance-none border rounded w-full py-2 px-3 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-                  onChange={(e) => setProblem(e.target.value)}
-                ></textarea>
-              </div> */}
               <div className="flex items-center justify-between mb-1">
                 <button className="inline-block align-baseline font-bold text-lg text-black hover:text-blue-800">
                   Submit

@@ -5,16 +5,19 @@ import "./App.css";
 
 function App() {
   //  const [query, setQuery] = useState("");
-  const [advice, setAdvice] = useState("This is where the advice will appear.");
+  const [advice, setAdvice] = useState(
+    `Reply:This is where the advice will appear.`
+  );
 
-  const handleSubmit = async (e, problem) => {
+  const handleSubmit = async (e, responseArray) => {
     e.preventDefault();
-    console.log("Submitting to AI engine", problem, typeof problem);
-
-    await getAdvice(problem);
+    console.log("Submitting to AI engine", responseArray, typeof responseArray);
+    await getAdvice(responseArray);
   };
 
   const getAdvice = async (problem) => {
+    console.log("The problem passed into api call function ", problem);
+
     //  setAdvice(`Here is the advice from the AI engine for the query:${problem}`);
     //let url = "http://localhost:3000"; // for dev local
     let url = "https://avn-ready-backend-app-hxiez.ondigitalocean.app"; // for production
@@ -31,10 +34,10 @@ function App() {
       body: JSON.stringify(bodyContent),
       headers: headersList,
     })
-      .then((response) => response.text())
+      .then((response) => response.json())
       .then((r) => {
-        console.log(r);
-        setAdvice(r.text.message.content);
+        console.log(r.text);
+        setAdvice(r.text);
       })
       .catch((error) => {
         console.log("error - ", error);
