@@ -33,7 +33,7 @@ const Login = () => {
     };
 
     let bodyContent = `username=${username}&password=${password}`;
-    console.log("handlelogin sending :", bodyContent);
+    //   console.log("handlelogin sending :", bodyContent);
     await fetch(`${url}/login`, {
       method: "POST",
       credentials: "include", // to send HTTP only cookies
@@ -43,7 +43,7 @@ const Login = () => {
       .then((response) => response.json())
       .then((response) => {
         setLoading(false);
-        console.log(response);
+        //      console.log(response);
         if (response.message == "fail") {
           console.log("login fail");
           enqueueSnackbar("Invalid username or password", { variant: "error" });
@@ -79,7 +79,7 @@ const Login = () => {
       .then((response) => response.json())
       .then((response) => {
         setLoading(false);
-        console.log(response);
+        //      console.log(response);
         if (response.message == "fail") {
           console.log("login fail");
           enqueueSnackbar(
@@ -109,7 +109,7 @@ const Login = () => {
     setLoading(true);
     //    let url = "http://localhost:3000";
     let url = "https://avn-ready-backend-app-hxiez.ondigitalocean.app"; // for production
-    console.log("From verify :", username, privileges);
+    //    console.log("From verify :", username, privileges);
     // Request to your backend to authenticate the user
     let headersList = {
       Accept: "*/*",
@@ -117,7 +117,7 @@ const Login = () => {
     };
 
     let bodyContent = `tfa=${twoFACode}`;
-    console.log("Entered code is ", twoFACode);
+    //    console.log("Entered code is ", twoFACode);
     await fetch(`${url}/verify2FA`, {
       method: "POST",
       credentials: "include", // to send HTTP only cookies
@@ -152,7 +152,7 @@ const Login = () => {
   };
 
   useEffect(() => {
-    console.log("here - ", { user }.email);
+    //  console.log("here - ", { user }.email);
     if (user) navigate("/profile");
   }, []);
 
