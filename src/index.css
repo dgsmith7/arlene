@@ -3,6 +3,23 @@
 @tailwind utilities;
 
 input {
-  background-color: #aeb0b5;
+  background-color: #caccd1;
   color: #212121;
+}
+
+.splashImage {
+  background-image: url("./assets/output.png");
+  background-position: center;
+  background-size: 75%;
+  background-repeat: no-repeat;
+}
+
+.overlay {
+  position: fixed; /* Positioning and size */
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(128, 128, 128, 0.5); /* color */
+  display: none; /* making it hidden by default */
 }

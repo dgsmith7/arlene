@@ -14,7 +14,8 @@ const Forgot = () => {
   const handleForgot = async (e) => {
     e.preventDefault();
     setLoading(true);
-    let url = "http://localhost:3000";
+    //    let url = "http://localhost:3000";
+    let url = "https://avn-ready-backend-app-hxiez.ondigitalocean.app"; // for production
     // Request to your backend to authenticate the user
     let headersList = {
       Accept: "*/*",
@@ -22,7 +23,6 @@ const Forgot = () => {
     };
 
     let bodyContent = `email=${email}`;
-    console.log("Email entered is ", email);
     await fetch(`${url}/forgot`, {
       method: "POST",
       credentials: "include", // to send HTTP only cookies
@@ -32,7 +32,6 @@ const Forgot = () => {
       .then((response) => response.json())
       .then((r) => {
         setLoading(false);
-        console.log(r.message);
         enqueueSnackbar(
           "If an account with that email exists, we will send you a instructions to reset your password shortly.",
           {
@@ -46,7 +45,7 @@ const Forgot = () => {
         enqueueSnackbar(
           "There is a problem on our end. Please try again later.",
           {
-            variant: "warning",
+            variant: "error",
           }
         );
       });
@@ -55,7 +54,7 @@ const Forgot = () => {
   return (
     <div className="min-h-full p-4 bg-white text-black">
       <Header />
-      <div id="spacer" className="h-20"></div>
+      <div id="spacer" className="h-40"></div>
       <div className="min-h-screen">
         <div className="flex justify-center">
           <form

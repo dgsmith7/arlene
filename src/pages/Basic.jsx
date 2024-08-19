@@ -3,9 +3,9 @@ import Footer from "../components/Footer";
 
 const Basic = () => {
   return (
-    <div className="min-h-full p-4 bg-white text-black">
+    <div className="min-h-full bg-backgroundLight dark:bg-backgroundDark text-textLight dark:text-textDark">
       <Header />
-      <div id="spacer" className="h-20"></div>
+      <div id="spacer" className="h-40"></div>
       <div className="min-h-screen">
         <div className="flex justify-center">
           <h1>Welcome to the Basic Dashboard Page</h1>

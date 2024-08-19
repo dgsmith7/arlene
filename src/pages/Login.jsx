@@ -23,7 +23,8 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     setLoading(true);
-    let url = "http://localhost:3000";
+    //    let url = "http://localhost:3000";
+    let url = "https://avn-ready-backend-app-hxiez.ondigitalocean.app"; // for production
 
     // Request to your backend to authenticate the user
     let headersList = {
@@ -133,6 +134,7 @@ const Login = () => {
             variant: "success",
           });
           login({
+            //            email: { user }.email,
             username: { username }.username,
             privileges: { privileges }.privileges,
             twoFAVerified: true,
@@ -148,27 +150,37 @@ const Login = () => {
   };
 
   useEffect(() => {
+    console.log("here - ", { user }.email);
     if (user) navigate("/profile");
   }, []);
 
   return (
-    <div className="min-h-full p-4 bg-white text-black">
+    <div className="min-h-full bg-backgroundLight dark:bg-backgroundDark text-textLight dark:text-textDark">
+      <div>
+        {loading ? (
+          <div className="fixed inset-0 z-30">
+            <Spinner />
+          </div>
+        ) : (
+          <div></div>
+        )}
+      </div>
       <Header />
-      <div id="spacer" className="h-20"></div>
+      <div id="spacer" className="h-40"></div>
       <div className="min-h-screen">
         <div className="flex justify-center">
           {!oneFACompleted ? (
-            <div className="bg-gray-500 shadow-2xl rounded px-8 pt-4 pb-4 mb-4">
+            <div className="bg-headerLight dark:bg-headerDark shadow-2xl rounded px-8 pt-4 pb-4 mb-4">
               <form onSubmit={handleLogin}>
                 <div className="mb-4">
                   <label
-                    className="block text-black text-sm font-bold mb-2"
+                    className="block text-textLight dark:text-textDark text-sm font-bold mb-2"
                     htmlFor="username"
                   >
                     Username
                   </label>
                   <input
-                    className="bg-white shadow appearance-none border rounded w-full py-2 px-3 text-black mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                    className="shadow appearance-none border rounded w-full py-2 px-3 text-black mb-3 leading-tight focus:outline-none focus:shadow-outline"
                     id="username"
                     type="text"
                     value={username}
@@ -176,19 +188,19 @@ const Login = () => {
                     tabIndex={0}
                     onChange={(e) => setUsername(e.target.value)}
                   />
-                  <p className="text-black text-sm italic">
+                  <p className=" text-textLight dark:text-textDark text-sm italic">
                     Please enter your username.
                   </p>
                 </div>
                 <div className="mb-6">
                   <label
-                    className="block text-black text-sm font-bold mb-2"
+                    className="block  text-textLight dark:text-textDark text-sm font-bold mb-2"
                     htmlFor="password"
                   >
                     Password
                   </label>
                   <input
-                    className="bg-white shadow appearance-none border rounded w-full py-2 px-3 text-black mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                    className="shadow appearance-none border rounded w-full py-2 px-3 text-black mb-3 leading-tight focus:outline-none focus:shadow-outline"
                     id="password"
                     type="password"
                     placeholder="******************"
@@ -196,25 +208,24 @@ const Login = () => {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                   />
-                  <p className="text-black text-xs italic">
+                  <p className=" text-textLight dark:text-textDark text-xs italic">
                     <span>Please enter your password.</span>
                   </p>
                 </div>
                 <div className="flex items-center justify-between mb-5">
                   <button
-                    className="inline-block align-baseline font-bold text-lg text-black hover:text-blue-800 border border-black p-1 rounded-md"
+                    className="inline-block align-baseline font-bold text-lg text-textLight dark:text-textDark hover:text-blue-800 border border-textLight dark:border-textDark p-1 rounded-md"
                     type="submit"
                     tabIndex={0}
                   >
                     Log In
                   </button>
-                  {loading ? <Spinner /> : <></>}
                 </div>
                 <div className="text-center">
                   {" "}
                   <Link
                     to={"/forgot"}
-                    className="m-1 inline-block align-baseline text-sm text-black font-bold hover:text-blue-800 border border-black p-1 rounded-md"
+                    className="m-1 inline-block align-baseline text-sm text-textLight dark:text-textDark font-bold hover:text-blue-800 border border-textLight dark:border-textDark p-1 rounded-md"
                   >
                     Forgot password
                   </Link>
@@ -222,7 +233,7 @@ const Login = () => {
                 <div className="text-center">
                   <Link
                     to={"/signup"}
-                    className="inline-block align-baseline font-bold text-sm text-black hover:text-blue-800 border border-black p-1 rounded-md"
+                    className="inline-block align-baseline font-bold text-sm text-textLight dark:text-textDark hover:text-blue-800 border border-textLight dark:border-textDark p-1 rounded-md"
                   >
                     New user? - Sign up
                   </Link>
@@ -230,17 +241,17 @@ const Login = () => {
               </form>
             </div>
           ) : (
-            <div className="bg-gray-500 shadow-2xl rounded px-8 pt-4 pb-4 mb-4">
+            <div className="bg-headerLight dark:bg-headerDark shadow-2xl rounded px-8 pt-4 pb-4 mb-4">
               <form onSubmit={handleVerify2FA}>
                 <div className="mb-4">
                   <label
-                    className="block text-black text-sm font-bold mb-2"
+                    className="block text-textLight dark:text-textDark text-sm font-bold mb-2"
                     htmlFor="twoFACode"
                   >
                     Code
                   </label>
                   <input
-                    className="bg-white shadow appearance-none border rounded w-full py-2 px-3 text-black mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                    className="shadow appearance-none border rounded w-full py-2 px-3 text-textLight mb-3 leading-tight focus:outline-none focus:shadow-outline"
                     id="twoFACode"
                     type="twoFACode"
                     value={twoFACode}
@@ -248,7 +259,7 @@ const Login = () => {
                     tabIndex={0}
                     onChange={(e) => setTwoFACode(e.target.value)}
                   />
-                  <p className="text-black text-sm italic">
+                  <p className="text-textLight dark:text-textDark text-sm italic">
                     Please enter the code sent to the email address associated
                     with your account.
                   </p>
@@ -256,13 +267,12 @@ const Login = () => {
 
                 <div className="flex items-center justify-between mb-5">
                   <button
-                    className="inline-block align-baseline font-bold text-lg text-black hover:text-blue-800 border border-black p-1 rounded-md"
+                    className="inline-block align-baseline font-bold text-lg text-textLight dark:text-textDark hover:text-blue-800 border border-textLight dark:border-textDark p-1 rounded-md"
                     type="submit"
                     tabIndex={0}
                   >
                     Submit
                   </button>
-                  {loading ? <Spinner /> : <></>}
                 </div>
               </form>
             </div>

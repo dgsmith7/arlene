@@ -3,14 +3,20 @@ import Footer from "../components/Footer";
 
 const Index = () => {
   return (
-    <div className="p-4 bg-backgroundLight dark:bg-backgroundDark text-textLight dark:text-textDark">
+    <div className="splashImage bg-backgroundLight dark:bg-backgroundDark text-textLight dark:text-textDark">
       <Header />
-      <div id="spacer" className="h-20"></div>
-      <div className="min-h-screen">
-        <div className="text-center text-xl">
-          <div>
-            This is the splash page avaialable to any visitior, even without
-            authentication.
+      <div>
+        <div className="flex self-center min-h-screen">
+          <div className="m-auto text-center text-xl bg-transparent">
+            <div className="text-center">
+              <p className="text-6xl">Arlene</p>
+              <p className="text-4xl">
+                Aviation Readiness and Logistics Expertise Engine
+              </p>
+            </div>
+            <div className="text-sm">
+              Harnessing Artificial Intelligence to advance your mission.{" "}
+            </div>
           </div>
         </div>
       </div>

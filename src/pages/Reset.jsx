@@ -15,7 +15,8 @@ const Reset = () => {
   const handleReset = async (e) => {
     e.preventDefault();
     setLoading(true);
-    let url = "http://localhost:3000";
+    let url = "https://avn-ready-backend-app-hxiez.ondigitalocean.app"; // for production
+    //    let url = "http://localhost:3000";
     const token = window.location.pathname.split("/").pop();
     console.log(token);
     // send the token to the backend for validation along with the new password and display the result.  If it validates, nav to the login page.  If it does not validate send to forgot page.
@@ -55,9 +56,9 @@ const Reset = () => {
   };
 
   return (
-    <div className="min-h-full p-4 bg-white text-black">
+    <div className="min-h-full bg-backgroundLight dark:bg-backgroundDark text-textLight dark:text-textDark">
       <Header />
-      <div id="spacer" className="h-20"></div>
+      <div id="spacer" className="h-40"></div>
       <div className="min-h-screen">
         <div className="flex justify-center">
           <form

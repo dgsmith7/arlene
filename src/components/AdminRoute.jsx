@@ -10,6 +10,7 @@ const AdminRoute = ({ children }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    console.log(user);
     if (!user || user.twoFAVerified != true || user.privileges != "Admin") {
       // user is not authenticated
       enqueueSnackbar("Admin - You don't have access privileges", {

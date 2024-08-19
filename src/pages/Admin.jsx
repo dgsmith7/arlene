@@ -2,22 +2,48 @@ import { useState, useEffect } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Spinner from "../components/Spinner";
-import { useCsrf } from "../hooks/useCsrf";
 
 const Admin = () => {
   const [userList, setUserList] = useState([]);
   const [loading, setLoading] = useState(false);
-  const { token } = useCsrf();
 
   useEffect(() => {
+    const getToken = async () => {
+      let token = "";
+      setLoading(true);
+      //      let url = "http://localhost:3000";
+      let url = "https://avn-ready-backend-app-hxiez.ondigitalocean.app"; // for production
+      let headersList = {
+        Accept: "*/*",
+        "Content-Type": "application/x-www-form-urlencoded",
+      };
+      await fetch(`${url}/getcsrf`, {
+        method: "POST",
+        credentials: "include", // to send HTTP only cookies
+        headers: headersList,
+      })
+        .then((response) => response.json())
+        .then((response) => {
+          setLoading(false);
+          console.log(response);
+          console.log("this is it: ", response.csrfToken);
+          token = response.csrfToken;
+        })
+        .catch((error) => {
+          console.log("error - ", error.message);
+        });
+      return token;
+    };
+
     async function getList() {
+      let token = await getToken();
       console.log("Getting list - Token: ", { token }.token);
       setLoading(true);
       let url = "http://localhost:3000";
       let headersList = {
         Accept: "*/*",
         "Content-Type": "application/x-www-form-urlencoded",
-        "X-Csrf-Token": { token }.token,
+        "X-Csrf-Token": token,
       };
       await fetch(`${url}/accountList`, {
         method: "POST",
@@ -38,19 +64,20 @@ const Admin = () => {
           console.log("error - ", error);
         });
     }
+
     try {
       getList();
       //      enqueueSnackbar("Data read successfully", { variant: "success" });
     } catch (error) {
       //      enqueueSnackbar("There was a problem reading the data", {
-      //   variant: "warning",
+      //   variant: "error",
     }
   }, []);
 
   return (
     <div className="min-h-full p-4 bg-white text-black">
       <Header />
-      <div id="spacer" className="h-20"></div>
+      <div id="spacer" className="h-40"></div>
       <div className="min-h-screen">
         <div className="flex justify-center">
           <h1>Welcome to the Admin Dashboard Page</h1>

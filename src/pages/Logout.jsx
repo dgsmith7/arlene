@@ -19,7 +19,8 @@ const Logout = () => {
   // api call to handle session?
   const handleLogout = async () => {
     setLoading(true);
-    let url = "http://localhost:3000";
+    //    let url = "http://localhost:3000";
+    let url = "https://avn-ready-backend-app-hxiez.ondigitalocean.app"; // for production
 
     // Request to your backend to authenticate the user
     let headersList = {
@@ -53,9 +54,9 @@ const Logout = () => {
   };
 
   return (
-    <div className="p-4 bg-white text-black">
+    <div className="bg-backgroundLight dark:bg-backgroundDark text-textLight dark:text-textDark">
       <Header />
-      <div id="spacer" className="h-20"></div>
+      <div id="spacer" className="h-40"></div>
       <div className="min-h-screen">
         <div className="flex justify-center text-center">
           {user == null ? (

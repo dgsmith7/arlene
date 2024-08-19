@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./hooks/useAuth";
-import { CsrfProvider } from "./hooks/useCsrf";
+import { AccountDataProvider } from "./hooks/useAccountData";
 import Login from "./pages/Login";
 import Logout from "./pages/Logout";
 import Signup from "./pages/Signup";
@@ -20,7 +20,7 @@ import "./index.css";
 function App() {
   return (
     <AuthProvider>
-      <CsrfProvider>
+      <AccountDataProvider>
         <Routes errorElement={<ErrorPage />}>
           <Route path="/" element={<Index />} />
           <Route path="/login" element={<Login />} />
@@ -62,7 +62,7 @@ function App() {
             }
           />
         </Routes>
-      </CsrfProvider>
+      </AccountDataProvider>
     </AuthProvider>
   );
 }
