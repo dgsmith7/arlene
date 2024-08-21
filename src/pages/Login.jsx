@@ -24,8 +24,7 @@ const Login = () => {
     e.preventDefault();
     setLoading(true);
     //let url = "http://localhost:3000";
-    //let url = "https://avn-ready-backend-app-hxiez.ondigitalocean.app"; // for production
-    let url = "https://arlene-app.com";
+    let url = "https://avn-ready-backend-app-hxiez.ondigitalocean.app"; // for production
     // Request to your backend to authenticate the user
     let headersList = {
       Accept: "*/*",
@@ -65,8 +64,7 @@ const Login = () => {
   const handleSend2FA = async () => {
     setLoading(true);
     //let url = "http://localhost:3000";
-    //let url = "https://avn-ready-backend-app-hxiez.ondigitalocean.app"; // for production
-    let url = "https://arlene-app.com";
+    let url = "https://avn-ready-backend-app-hxiez.ondigitalocean.app"; // for production
     // Request to your backend to send user a code
     let headersList = {
       Accept: "*/*",
@@ -109,8 +107,7 @@ const Login = () => {
     e.preventDefault();
     setLoading(true);
     //let url = "http://localhost:3000";
-    //let url = "https://avn-ready-backend-app-hxiez.ondigitalocean.app"; // for production
-    let url = "https://arlene-app.com";
+    let url = "https://avn-ready-backend-app-hxiez.ondigitalocean.app"; // for production
     //    console.log("From verify :", username, privileges);
     // Request to your backend to authenticate the user
     let headersList = {
