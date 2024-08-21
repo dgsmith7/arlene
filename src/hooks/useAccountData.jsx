@@ -24,7 +24,9 @@ export const AccountDataProvider = ({ children }) => {
     let token = await getToken();
     console.log("Getting userdata - Token: ", { token }.token);
     //     setLoading(true);
-    let url = "http://localhost:3000";
+    //let url = "http://localhost:3000";
+    //let url = "https://avn-ready-backend-app-hxiez.ondigitalocean.app"; // for production
+    let url = "https://arlene-app.com";
     //      let bodyContent = `username=${username}`;
     let headersList = {
       Accept: "*/*",
@@ -62,7 +64,9 @@ export const AccountDataProvider = ({ children }) => {
     console.log("getting token...");
     let token = "";
     //     setLoading(true);
-    let url = "http://localhost:3000";
+    //let url = "http://localhost:3000";
+    //let url = "https://avn-ready-backend-app-hxiez.ondigitalocean.app"; // for production
+    let url = "https://arlene-app.com";
     let headersList = {
       Accept: "*/*",
       "Content-Type": "application/x-www-form-urlencoded",
@@ -141,8 +145,8 @@ export const AccountDataProvider = ({ children }) => {
       let token = await getToken();
       console.log("Getting userdata - Token: ", { token }.token);
       //     setLoading(true);
-      //      let url = "http://localhost:3000";
-      let url = "https://avn-ready-backend-app-hxiez.ondigitalocean.app"; // for production
+      let url = "http://localhost:3000";
+      //let url = "https://avn-ready-backend-app-hxiez.ondigitalocean.app"; // for production
       //      let bodyContent = `username=${username}`;
       let headersList = {
         Accept: "*/*",

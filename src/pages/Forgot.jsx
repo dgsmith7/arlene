@@ -14,8 +14,9 @@ const Forgot = () => {
   const handleForgot = async (e) => {
     e.preventDefault();
     setLoading(true);
-    //    let url = "http://localhost:3000";
-    let url = "https://avn-ready-backend-app-hxiez.ondigitalocean.app"; // for production
+    //let url = "http://localhost:3000";
+    //let url = "https://avn-ready-backend-app-hxiez.ondigitalocean.app"; // for production
+    let url = "https://arlene-app.com";
     // Request to your backend to authenticate the user
     let headersList = {
       Accept: "*/*",

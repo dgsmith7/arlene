@@ -18,8 +18,9 @@ const UserModal = ({ isOpen, closeModal }) => {
   const getToken = async () => {
     let token = "";
     setLoading(true);
-    //    let url = "http://localhost:3000";
-    let url = "https://avn-ready-backend-app-hxiez.ondigitalocean.app"; // for production
+    //let url = "http://localhost:3000";
+    //let url = "https://avn-ready-backend-app-hxiez.ondigitalocean.app"; // for production
+    let url = "https://arlene-app.com";
     let headersList = {
       Accept: "*/*",
       "Content-Type": "application/x-www-form-urlencoded",
@@ -47,8 +48,9 @@ const UserModal = ({ isOpen, closeModal }) => {
       let token = await getToken();
       console.log("Getting list - Token: ", { token }.token);
       setLoading(true);
-      //      let url = "http://localhost:3000";
-      let url = "https://avn-ready-backend-app-hxiez.ondigitalocean.app"; // for production
+      //let url = "http://localhost:3000";
+      //let url = "https://avn-ready-backend-app-hxiez.ondigitalocean.app"; // for production
+      let url = "https://arlene-app.com";
       let headersList = {
         Accept: "*/*",
         "Content-Type": "application/x-www-form-urlencoded",
@@ -116,8 +118,9 @@ const UserModal = ({ isOpen, closeModal }) => {
     setLoading(true);
     let token = await getToken();
     console.log("token: ", token);
-    //    let url = "http://localhost:3000";
-    let url = "https://avn-ready-backend-app-hxiez.ondigitalocean.app"; // for production
+    //let url = "http://localhost:3000";
+    //let url = "https://avn-ready-backend-app-hxiez.ondigitalocean.app"; // for production
+    let url = "https://arlene-app.com";
     url += "/modifylist";
     let headersList = {
       Accept: "*/*",

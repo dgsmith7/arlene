@@ -56,8 +56,9 @@ const UpdateProfile = () => {
     console.log("getting token...");
     let token = "";
     //     setLoading(true);
-    //    let url = "http://localhost:3000";
-    let url = "https://avn-ready-backend-app-hxiez.ondigitalocean.app"; // for production
+    //let url = "http://localhost:3000";
+    //let url = "https://avn-ready-backend-app-hxiez.ondigitalocean.app"; // for production
+    let url = "https://arlene-app.com";
     let headersList = {
       Accept: "*/*",
       "Content-Type": "application/x-www-form-urlencoded",
