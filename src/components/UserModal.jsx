@@ -19,7 +19,7 @@ const UserModal = ({ isOpen, closeModal }) => {
     let token = "";
     setLoading(true);
     //let url = "http://localhost:3000";
-    //let url = "https://avn-ready-backend-app-hxiez.ondigitalocean.app"; // for production
+    //let url = "https://avn-ready-backend-app-8eg86.ondigitalocean.app"; // for production
     let url = "https://arlene-app.com";
     let headersList = {
       Accept: "*/*",
@@ -49,7 +49,7 @@ const UserModal = ({ isOpen, closeModal }) => {
       console.log("Getting list - Token: ", { token }.token);
       setLoading(true);
       //let url = "http://localhost:3000";
-      //let url = "https://avn-ready-backend-app-hxiez.ondigitalocean.app"; // for production
+      //let url = "https://avn-ready-backend-app-8eg86.ondigitalocean.app"; // for production
       let url = "https://arlene-app.com";
       let headersList = {
         Accept: "*/*",
@@ -119,7 +119,7 @@ const UserModal = ({ isOpen, closeModal }) => {
     let token = await getToken();
     console.log("token: ", token);
     //let url = "http://localhost:3000";
-    //let url = "https://avn-ready-backend-app-hxiez.ondigitalocean.app"; // for production
+    //let url = "https://avn-ready-backend-app-8eg86.ondigitalocean.app"; // for production
     let url = "https://arlene-app.com";
     url += "/modifylist";
     let headersList = {

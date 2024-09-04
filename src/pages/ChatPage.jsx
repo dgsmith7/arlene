@@ -51,7 +51,7 @@ const ChatPage = () => {
   const getAdvice = async (problem, userMessage) => {
     //  setAdvice(`Here is the advice from the AI engine for the query:${problem}`);
     //let url = "http://localhost:3000";
-    let url = "https://avn-ready-backend-app-hxiez.ondigitalocean.app"; // for production
+    let url = "https://avn-ready-backend-app-8eg86.ondigitalocean.app"; // for production
     let headersList = {
       Accept: "*/*",
       "Content-Type": "application/json",
@@ -86,7 +86,7 @@ const ChatPage = () => {
 
   const initializeConversation = async (problem, userMessage) => {
     //let url = "http://localhost:3000";
-    let url = "https://avn-ready-backend-app-hxiez.ondigitalocean.app"; // for production
+    let url = "https://avn-ready-backend-app-8eg86.ondigitalocean.app"; // for production
     let headersList = {
       Accept: "*/*",
       "Content-Type": "application/json",

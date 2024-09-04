@@ -25,7 +25,7 @@ export const AccountDataProvider = ({ children }) => {
     console.log("Getting userdata - Token: ", { token }.token);
     //     setLoading(true);
     //let url = "http://localhost:3000";
-    let url = "https://avn-ready-backend-app-hxiez.ondigitalocean.app"; // for production
+    let url = "https://avn-ready-backend-app-8eg86.ondigitalocean.app"; // for production
     //      let bodyContent = `username=${username}`;
     let headersList = {
       Accept: "*/*",
@@ -64,7 +64,7 @@ export const AccountDataProvider = ({ children }) => {
     let token = "";
     //     setLoading(true);
     //let url = "http://localhost:3000";
-    //let url = "https://avn-ready-backend-app-hxiez.ondigitalocean.app"; // for production
+    //let url = "https://avn-ready-backend-app-8eg86.ondigitalocean.app"; // for production
     let url = "https://arlene-app.com";
     let headersList = {
       Accept: "*/*",
@@ -145,7 +145,7 @@ export const AccountDataProvider = ({ children }) => {
       console.log("Getting userdata - Token: ", { token }.token);
       //     setLoading(true);
       let url = "http://localhost:3000";
-      //let url = "https://avn-ready-backend-app-hxiez.ondigitalocean.app"; // for production
+      //let url = "https://avn-ready-backend-app-8eg86.ondigitalocean.app"; // for production
       //      let bodyContent = `username=${username}`;
       let headersList = {
         Accept: "*/*",

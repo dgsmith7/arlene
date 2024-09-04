@@ -16,7 +16,7 @@ const Reset = () => {
     e.preventDefault();
     setLoading(true);
     //let url = "http://localhost:3000";
-    let url = "https://avn-ready-backend-app-hxiez.ondigitalocean.app"; // for production
+    let url = "https://avn-ready-backend-app-8eg86.ondigitalocean.app"; // for production
     const token = window.location.pathname.split("/").pop();
     console.log(token);
     // send the token to the backend for validation along with the new password and display the result.  If it validates, nav to the login page.  If it does not validate send to forgot page.
