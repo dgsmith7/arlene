@@ -31,8 +31,8 @@ const Login = () => {
       "Content-Type": "application/x-www-form-urlencoded",
     };
 
-    // let bodyContent = `username=${username}&password=${password}`;
-    let bodyContent = { username: username, password: password };
+    let bodyContent = `username=${username}&password=${password}`;
+    //let bodyContent = { username: username, password: password };
     //   console.log("handlelogin sending :", bodyContent);
     await fetch(`${url}/login`, {
       method: "POST",
@@ -55,7 +55,7 @@ const Login = () => {
       })
       .catch((error) => {
         setLoading(false);
-        console.log("error - ", error);
+        console.log("The error - ", error);
         enqueueSnackbar("An error occured during authentication", {
           variant: "warning",
         });
