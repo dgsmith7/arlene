@@ -31,7 +31,8 @@ const Login = () => {
       "Content-Type": "application/x-www-form-urlencoded",
     };
 
-    let bodyContent = `username=${username}&password=${password}`;
+    // let bodyContent = `username=${username}&password=${password}`;
+    let bodyContent = { username: username, password: password };
     //   console.log("handlelogin sending :", bodyContent);
     await fetch(`${url}/login`, {
       method: "POST",
