@@ -6,7 +6,7 @@ import ChatMessage from "../components/ChatMessage.jsx";
 import { useAccountData } from "../hooks/useAccountData";
 //import { useAuth } from "../hooks/useAuth";
 import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
-import Loading from "./Loading";
+import Loading from "../components/Loading";
 import { getConfig } from "../config";
 
 export const ChatPage = () => {
@@ -72,7 +72,7 @@ export const ChatPage = () => {
     console.log(bodyContent, typeof bodyContent);
     await fetch(`${apiOrigin}/advise`, {
       method: "POST",
-//      credentials: "include", // to send HTTP only cookies
+      //      credentials: "include", // to send HTTP only cookies
       headers: {
         Authorization: `Bearer ${token}`,
       },

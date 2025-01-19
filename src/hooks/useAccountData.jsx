@@ -8,13 +8,13 @@ import Unnamed from "../assets/unnamed.jpg";
 import { useSessionStorage } from "./useSessionStorage";
 //import { useAuth } from "../hooks/useAuth";
 import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
-import Loading from "./Loading";
+import Loading from "../components/Loading";
 import { getConfig } from "../config";
 
-  const {
-    apiOrigin = "https://avn-ready-backend-app-8eg86.ondigitalocean.app",
-    audience,
-  } = getConfig();
+const {
+  apiOrigin = "https://avn-ready-backend-app-8eg86.ondigitalocean.app",
+  audience,
+} = getConfig();
 
 const AccountDataContext = createContext();
 
@@ -25,14 +25,15 @@ export const AccountDataProvider = ({ children }) => {
   const [email, setEmail] = useSessionStorage("email", "");
   const [newUser, setNewUser] = useState("true");
   const [refresh, setRefresh] = useState("false");
-//  const { user } = useAuth();
-const { user, isAuthenticated, getAccessTokenSilently, isLoading } = useAuth0();
+  //  const { user } = useAuth();
+  const { user, isAuthenticated, getAccessTokenSilently, isLoading } =
+    useAuth0();
 
   const updateUserData = async (fieldArr, newDataObjectArr) => {
     setRefresh(!refresh);
-//    let token = await getToken();
-const token = await getAccessTokenSilently();
-//console.log("Getting userdata - Token: ", { token }.token);
+    //    let token = await getToken();
+    const token = await getAccessTokenSilently();
+    //console.log("Getting userdata - Token: ", { token }.token);
     //     setLoading(true);
     //let url = "http://localhost:3000";
     let url = "https://avn-ready-backend-app-8eg86.ondigitalocean.app"; // for production
@@ -44,7 +45,7 @@ const token = await getAccessTokenSilently();
     // };
     await fetch(`${apiOrigin}/updateaccountdata`, {
       method: "POST",
-//      credentials: "include", // to send HTTP only cookies
+      //      credentials: "include", // to send HTTP only cookies
       //        body: bodyContent,
       headers: {
         Authorization: `Bearer ${token}`,
@@ -153,10 +154,10 @@ const token = await getAccessTokenSilently();
     // };
 
     const getAccountData = async () => {
-//      let token = await getToken();
-//      console.log("Getting userdata - Token: ", { token }.token);
-const token = await getAccessTokenSilently();
-//     setLoading(true);
+      //      let token = await getToken();
+      //      console.log("Getting userdata - Token: ", { token }.token);
+      const token = await getAccessTokenSilently();
+      //     setLoading(true);
       let url = "http://localhost:3000";
       //let url = "https://avn-ready-backend-app-8eg86.ondigitalocean.app"; // for production
       //      let bodyContent = `username=${username}`;
