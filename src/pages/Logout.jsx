@@ -1,6 +1,5 @@
 import { useAuth0 } from "@auth0/auth0-react";
-import { useEffect } from "react";
-// import { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 // import { useAuth } from "../hooks/useAuth";
 // import Header from "../components/Header";
 // import Footer from "../components/Footer";
@@ -23,11 +22,11 @@ const Logout = () => {
   return <></>;
 };
 
-  // useEffect(() => {
-  //   if (user) {
-  //     setTimeout(async () => handleLogout(), 500);
-  //   }
-  // }, []);
+// useEffect(() => {
+//   if (user) {
+//     setTimeout(async () => handleLogout(), 500);
+//   }
+// }, []);
 
 //   // api call to handle session?
 //   const handleLogout = async () => {
