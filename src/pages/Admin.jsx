@@ -10,7 +10,7 @@ export const Admin = () => {
   const [userList, setUserList] = useState([]);
   const [loading, setLoading] = useState(false);
   const {
-    apiOrigin = "https://auth3-backend-8eg86.ondigitalocean.app",
+    apiOrigin = "https://avn-ready-backend-app-8eg86.ondigitalocean.app",
     audience,
   } = getConfig();
 

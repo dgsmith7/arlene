@@ -15,7 +15,7 @@ const Profile = () => {
   const { newUser } = useAccountData();
 
   const handleRegister = async () => {
-//    e.preventDefault();
+    //    e.preventDefault();
     setLoading(true);
 
     //let url = "http://localhost:3000";
@@ -28,8 +28,8 @@ const Profile = () => {
     };
 
     let bodyContent = {
-      "username": user.name,
-      "email": user.email
+      username: user.name,
+      email: user.email,
     };
 
     await fetch(`${url}/register`, {
@@ -70,8 +70,6 @@ const Profile = () => {
       handleRegister();
     }
   });
-
-
 
   return (
     <div className="min-h-full bg-backgroundLight dark:bg-backgroundDark text-textLight dark:text-textDark">
