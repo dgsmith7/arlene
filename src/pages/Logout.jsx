@@ -15,7 +15,7 @@ const Logout = () => {
   useEffect(() => {
     logout({
       logoutParams: {
-        returnTo: "https://auth3-frontend-w5jsl.ondigitalocean.app/",
+        returnTo: "https://arlene-app.com/",
       },
     });
   }, []);

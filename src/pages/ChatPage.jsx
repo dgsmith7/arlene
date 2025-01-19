@@ -11,7 +11,7 @@ import { getConfig } from "../config";
 
 export const ChatPage = () => {
   const {
-    apiOrigin = "https://auth3-backend-e28n6.ondigitalocean.app",
+    apiOrigin = "https://auth3-backend-8eg86.ondigitalocean.app",
     audience,
   } = getConfig();
   const { getAccessTokenSilently } = useAuth0();
