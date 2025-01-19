@@ -7,6 +7,9 @@ import { FaArrowDown } from "react-icons/fa";
 import { FaPlayCircle } from "react-icons/fa";
 import { FaStopCircle } from "react-icons/fa";
 import Tooltip from "./Tooltip";
+import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
+import Loading from "./Loading";
+import { getConfig } from "../config";
 
 const UserModal = ({ isOpen, closeModal }) => {
   const { enqueueSnackbar } = useSnackbar();
@@ -15,42 +18,50 @@ const UserModal = ({ isOpen, closeModal }) => {
   const [userList, setUserList] = useState([]);
   const [toggleUpdate, setToggleUpdate] = useState(false);
 
-  const getToken = async () => {
-    let token = "";
-    setLoading(true);
-    //let url = "http://localhost:3000";
-    //let url = "https://avn-ready-backend-app-8eg86.ondigitalocean.app"; // for production
-    let url = "https://arlene-app.com";
-    let headersList = {
-      Accept: "*/*",
-      "Content-Type": "application/x-www-form-urlencoded",
-    };
-    await fetch(`${url}/getcsrf`, {
-      method: "POST",
-      credentials: "include", // to send HTTP only cookies
-      headers: headersList,
-    })
-      .then((response) => response.json())
-      .then((response) => {
-        setLoading(false);
-        console.log(response);
-        console.log("this is it: ", response.csrfToken);
-        token = response.csrfToken;
-      })
-      .catch((error) => {
-        console.log("error - ", error.message);
-      });
-    return token;
-  };
+  const { getAccessTokenSilently } = useAuth0();
+
+  // const getToken = async () => {
+  //   let token = "";
+  //   setLoading(true);
+  //   //let url = "http://localhost:3000";
+  //   //let url = "https://avn-ready-backend-app-8eg86.ondigitalocean.app"; // for production
+  //   let url = "https://arlene-app.com";
+  //   let headersList = {
+  //     Accept: "*/*",
+  //     "Content-Type": "application/x-www-form-urlencoded",
+  //   };
+  //   await fetch(`${url}/getcsrf`, {
+  //     method: "POST",
+  //     credentials: "include", // to send HTTP only cookies
+  //     headers: headersList,
+  //   })
+  //     .then((response) => response.json())
+  //     .then((response) => {
+  //       setLoading(false);
+  //       console.log(response);
+  //       console.log("this is it: ", response.csrfToken);
+  //       token = response.csrfToken;
+  //     })
+  //     .catch((error) => {
+  //       console.log("error - ", error.message);
+  //     });
+  //   return token;
+  // };
+  const {
+    apiOrigin = "https://avn-ready-backend-app-8eg86.ondigitalocean.app",
+    audience,
+  } = getConfig();
+
 
   useEffect(() => {
     async function getList() {
-      let token = await getToken();
-      console.log("Getting list - Token: ", { token }.token);
+//      let token = await getToken();
+const token = await getAccessTokenSilently();
+//console.log("Getting list - Token: ", { token }.token);
       setLoading(true);
       //let url = "http://localhost:3000";
       //let url = "https://avn-ready-backend-app-8eg86.ondigitalocean.app"; // for production
-      let url = "https://arlene-app.com";
+      //let url = "https://arlene-app.com";
       let headersList = {
         Accept: "*/*",
         "Content-Type": "application/x-www-form-urlencoded",
@@ -59,7 +70,9 @@ const UserModal = ({ isOpen, closeModal }) => {
       await fetch(`${url}/accountList`, {
         method: "POST",
         credentials: "include", // to send HTTP only cookies
-        headers: headersList,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       })
         .then((response) => response.json())
         .then((r) => {
@@ -116,11 +129,12 @@ const UserModal = ({ isOpen, closeModal }) => {
 
   async function updateStorage(username, action) {
     setLoading(true);
-    let token = await getToken();
-    console.log("token: ", token);
+    const token = await getAccessTokenSilently();
+    // let token = await getToken();
+    // console.log("token: ", token);
     //let url = "http://localhost:3000";
     //let url = "https://avn-ready-backend-app-8eg86.ondigitalocean.app"; // for production
-    let url = "https://arlene-app.com";
+    //let url = "https://arlene-app.com";
     url += "/modifylist";
     let headersList = {
       Accept: "*/*",
@@ -131,7 +145,9 @@ const UserModal = ({ isOpen, closeModal }) => {
     await fetch(`${url}`, {
       method: "POST",
       credentials: "include", // to send HTTP only cookies
-      headers: headersList,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
       body: JSON.stringify({ username: username, action: action }),
     })
       .then((response) => response.json())

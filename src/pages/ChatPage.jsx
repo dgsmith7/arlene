@@ -4,14 +4,22 @@ import Header from "../components/Header.jsx";
 import Footer from "../components/Footer.jsx";
 import ChatMessage from "../components/ChatMessage.jsx";
 import { useAccountData } from "../hooks/useAccountData";
-import { useAuth } from "../hooks/useAuth";
+//import { useAuth } from "../hooks/useAuth";
+import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
+import Loading from "./Loading";
+import { getConfig } from "../config";
 
-const ChatPage = () => {
+export const ChatPage = () => {
+  const {
+    apiOrigin = "https://auth3-backend-e28n6.ondigitalocean.app",
+    audience,
+  } = getConfig();
+  const { getAccessTokenSilently } = useAuth0();
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
   const [advice, setAdvice] = useState("");
   const location = useLocation();
-  const { user } = useAuth();
+  //const { user } = useAuth();
   const { userData, updateUserData } = useAccountData();
 
   //  const { myState } = location.state;
@@ -51,20 +59,23 @@ const ChatPage = () => {
   const getAdvice = async (problem, userMessage) => {
     //  setAdvice(`Here is the advice from the AI engine for the query:${problem}`);
     //let url = "http://localhost:3000";
-    let url = "https://avn-ready-backend-app-8eg86.ondigitalocean.app"; // for production
-    let headersList = {
-      Accept: "*/*",
-      "Content-Type": "application/json",
-    };
+    const token = await getAccessTokenSilently();
+    // let url = "https://avn-ready-backend-app-8eg86.ondigitalocean.app"; // for production
+    // let headersList = {
+    //   Accept: "*/*",
+    //   "Content-Type": "application/json",
+    // };
     let bodyContent = {
       problem: problem,
       threadId: userData.threadId,
     };
     console.log(bodyContent, typeof bodyContent);
-    await fetch(`${url}/advise`, {
+    await fetch(`${apiOrigin}/advise`, {
       method: "POST",
-      credentials: "include", // to send HTTP only cookies
-      headers: headersList,
+//      credentials: "include", // to send HTTP only cookies
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
       body: JSON.stringify(bodyContent),
     })
       .then((response) => response.json())
@@ -86,11 +97,12 @@ const ChatPage = () => {
 
   const initializeConversation = async (problem, userMessage) => {
     //let url = "http://localhost:3000";
+    const token = await getAccessTokenSilently();
     let url = "https://avn-ready-backend-app-8eg86.ondigitalocean.app"; // for production
-    let headersList = {
-      Accept: "*/*",
-      "Content-Type": "application/json",
-    };
+    // let headersList = {
+    //   Accept: "*/*",
+    //   "Content-Type": "application/json",
+    // };
     let bodyContent = {
       problem: [
         {
@@ -101,10 +113,12 @@ const ChatPage = () => {
       needsUpdate: location.state.needsUpdate.toString(),
     };
     console.log(bodyContent, typeof bodyContent);
-    await fetch(`${url}/getfullthread`, {
+    await fetch(`${apiOrigin}/getfullthread`, {
       method: "POST",
       credentials: "include", // to send HTTP only cookies
-      headers: headersList,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
       body: JSON.stringify(userData),
     })
       .then((response) => response.json())
@@ -158,4 +172,6 @@ const ChatPage = () => {
   );
 };
 
-export default ChatPage;
+export default withAuthenticationRequired(ChatPage, {
+  onRedirecting: () => <Loading />,
+});

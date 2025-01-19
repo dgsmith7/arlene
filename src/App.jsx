@@ -1,12 +1,15 @@
 import { Routes, Route } from "react-router-dom";
-import { AuthProvider } from "./hooks/useAuth";
+//import { AuthProvider } from "./hooks/useAuth";
+import { useAuth0 } from "@auth0/auth0-react";
+import Loading from "./components/Loading";
+
 import { AccountDataProvider } from "./hooks/useAccountData";
 import Login from "./pages/Login";
 import Logout from "./pages/Logout";
-import Signup from "./pages/Signup";
-import Forgot from "./pages/Forgot";
-import Reset from "./pages/Reset";
-import Index from "./pages/Index";
+//import Signup from "./pages/Signup";
+//import Forgot from "./pages/Forgot";
+//import Reset from "./pages/Reset";
+import Splash from "./pages/Splash";
 import Basic from "./pages/Basic";
 import ChatPage from "./pages/ChatPage";
 import About from "./pages/About";
@@ -18,25 +21,35 @@ import AdminRoute from "./components/AdminRoute";
 import "./index.css";
 
 function App() {
+  const { isLoading, error } = useAuth0();
+
+  if (error) {
+    return <div>Oops... {error.message}</div>;
+  }
+
+  if (isLoading) {
+    return <Loading />;
+  }
+
   return (
-    <AuthProvider>
+//    <AuthProvider>
       <AccountDataProvider>
         <Routes errorElement={<ErrorPage />}>
-          <Route path="/" element={<Index />} />
+          <Route path="/" element={<Splash />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
+          {/* <Route path="/signup" element={<Signup />} />
           <Route path="/forgot" element={<Forgot />} />
-          <Route path="/reset/:token" element={<Reset />} />
+          <Route path="/reset/:token" element={<Reset />} /> */}
           <Route path="/logout" element={<Logout />} />{" "}
           <Route path="/about" element={<About />} />{" "}
-          <Route
+          {/* <Route
             path="/basic"
             element={
               <BasicRoute>
                 <Basic />
               </BasicRoute>
             }
-          />
+          /> */}
           <Route
             path="/chatpage"
             element={
@@ -63,7 +76,7 @@ function App() {
           />
         </Routes>
       </AccountDataProvider>
-    </AuthProvider>
+//    </AuthProvider>
   );
 }
 

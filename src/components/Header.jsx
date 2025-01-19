@@ -7,11 +7,12 @@ import { IoMdChatboxes } from "react-icons/io";
 import Tooltip from "./Tooltip";
 import DarkModeButton from "./DarkModeButton";
 import { NavLink } from "react-router-dom";
-import { useAuth } from "../hooks/useAuth";
+//import { useAuth } from "../hooks/useAuth";
+import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
 import { useAccountData } from "../hooks/useAccountData";
 
 const Header = () => {
-  const { user } = useAuth();
+  const { user, isAuthenticated } = useAuth0();
   const { avatar, userData } = useAccountData();
   const [needsUpdate, setNeedsUpdate] = useState("false");
 
@@ -83,13 +84,13 @@ const Header = () => {
                 >
                   <h1 className="text-xl text-black dark:text-white font-bold">
                     <Tooltip message={"Profile"} posit={"below"}>
-                      {user ? (
+                      {/*user*/isAuthenticated ? (
                         <>
                           <img
                             className="mr-1 w-7 h-7 rounded"
                             src={avatar}
                           ></img>
-                          {user.username}
+                          {user.name/* {user.username} */}
                         </>
                       ) : (
                         <CgProfile className="size-7" />

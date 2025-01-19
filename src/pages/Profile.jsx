@@ -3,18 +3,75 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 // import { useAuth } from "../hooks/useAuth";
 import OrgData from "../components/OrgData";
-import { NavLink } from "react-router-dom";
+//import { NavLink } from "react-router-dom";
 import IndivUserData from "../components/IndivUserData";
 import { useAccountData } from "../hooks/useAccountData";
 import UpdateProfile from "../components/UpdateProfile";
+import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
 
 const Profile = () => {
   // const { user } = useAuth();
+  const { user } = useAuth0();
   const { newUser } = useAccountData();
+
+  const handleRegister = async () => {
+//    e.preventDefault();
+    setLoading(true);
+
+    //let url = "http://localhost:3000";
+    let url = "https://avn-ready-backend-app-8eg86.ondigitalocean.app"; // for production
+
+    // Request to your backend to authenticate the user
+    let headersList = {
+      Accept: "*/*",
+      "Content-Type": "application/json",
+    };
+
+    let bodyContent = {
+      "username": user.name,
+      "email": user.email
+    };
+
+    await fetch(`${url}/register`, {
+      method: "POST",
+      //credentials: "include", // to send HTTP only cookies
+      body: bodyContent,
+      headers: headersList,
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        setLoading(false);
+        if (response.message != "Successfully registered.") {
+          console.log("Signing up:", response.message, response.err);
+          enqueueSnackbar("Invalid or duplicate username or email", {
+            variant: "warning",
+          });
+        } else {
+          console.log("from signin response: ", response.priv);
+          enqueueSnackbar("Successfully registered", { variant: "success" });
+          console.log("from signup: ", {
+            username: username,
+            priv: response.priv,
+          });
+          navigate("/login", { push: true });
+        }
+      })
+      .catch((error) => {
+        console.log("error - ", error);
+        enqueueSnackbar("An error occured during authentication", {
+          variant: "warning",
+        });
+      });
+  };
 
   useEffect(() => {
     // check all of the data and open accordian and mark red as needed - maybe
+    if (newUser) {
+      handleRegister();
+    }
   });
+
+
 
   return (
     <div className="min-h-full bg-backgroundLight dark:bg-backgroundDark text-textLight dark:text-textDark">

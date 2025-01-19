@@ -4,6 +4,9 @@ import { useSnackbar } from "notistack";
 import { FaPlus } from "react-icons/fa";
 import { FaTrash } from "react-icons/fa";
 import Tooltip from "./Tooltip";
+import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
+import Loading from "./Loading";
+import { getConfig } from "../config";
 
 const CRUDModal = ({
   isOpen,
@@ -17,6 +20,7 @@ const CRUDModal = ({
   const { enqueueSnackbar } = useSnackbar();
   const [ingredient, setIngredient] = useState("");
   const [store, setStore] = useState("");
+  const { getAccessTokenSilently } = useAuth0();
 
   const handleChange = (dataItem) => {
     which == "Ingredients" ? setIngredient(dataItem) : setStore(dataItem);

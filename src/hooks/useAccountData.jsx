@@ -6,7 +6,15 @@ import Mechanic from "../assets/mechanic.jpg";
 import Logistician from "../assets/logistician.jpg";
 import Unnamed from "../assets/unnamed.jpg";
 import { useSessionStorage } from "./useSessionStorage";
-import { useAuth } from "../hooks/useAuth";
+//import { useAuth } from "../hooks/useAuth";
+import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
+import Loading from "./Loading";
+import { getConfig } from "../config";
+
+  const {
+    apiOrigin = "https://avn-ready-backend-app-8eg86.ondigitalocean.app",
+    audience,
+  } = getConfig();
 
 const AccountDataContext = createContext();
 
@@ -17,26 +25,30 @@ export const AccountDataProvider = ({ children }) => {
   const [email, setEmail] = useSessionStorage("email", "");
   const [newUser, setNewUser] = useState("true");
   const [refresh, setRefresh] = useState("false");
-  const { user } = useAuth();
+//  const { user } = useAuth();
+const { user, isAuthenticated, getAccessTokenSilently, isLoading } = useAuth0();
 
   const updateUserData = async (fieldArr, newDataObjectArr) => {
     setRefresh(!refresh);
-    let token = await getToken();
-    console.log("Getting userdata - Token: ", { token }.token);
+//    let token = await getToken();
+const token = await getAccessTokenSilently();
+//console.log("Getting userdata - Token: ", { token }.token);
     //     setLoading(true);
     //let url = "http://localhost:3000";
     let url = "https://avn-ready-backend-app-8eg86.ondigitalocean.app"; // for production
     //      let bodyContent = `username=${username}`;
-    let headersList = {
-      Accept: "*/*",
-      "Content-Type": "application/json",
-      "X-Csrf-Token": token,
-    };
-    await fetch(`${url}/updateaccountdata`, {
+    // let headersList = {
+    //   Accept: "*/*",
+    //   "Content-Type": "application/json",
+    //   "X-Csrf-Token": token,
+    // };
+    await fetch(`${apiOrigin}/updateaccountdata`, {
       method: "POST",
-      credentials: "include", // to send HTTP only cookies
+//      credentials: "include", // to send HTTP only cookies
       //        body: bodyContent,
-      headers: headersList,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
       body: JSON.stringify({
         fields: fieldArr,
         data: newDataObjectArr,
@@ -59,34 +71,34 @@ export const AccountDataProvider = ({ children }) => {
       });
   };
 
-  const getToken = async () => {
-    console.log("getting token...");
-    let token = "";
-    //     setLoading(true);
-    //let url = "http://localhost:3000";
-    //let url = "https://avn-ready-backend-app-8eg86.ondigitalocean.app"; // for production
-    let url = "https://arlene-app.com";
-    let headersList = {
-      Accept: "*/*",
-      "Content-Type": "application/x-www-form-urlencoded",
-    };
-    await fetch(`${url}/getcsrf`, {
-      method: "POST",
-      credentials: "include", // to send HTTP only cookies
-      headers: headersList,
-    })
-      .then((response) => response.json())
-      .then((response) => {
-        //        setLoading(false);
-        // console.log(response);
-        console.log("this is it: ", response.csrfToken);
-        token = response.csrfToken;
-      })
-      .catch((error) => {
-        console.log("error - ", error.message);
-      });
-    return token;
-  };
+  // const getToken = async () => {
+  //   console.log("getting token...");
+  //   let token = "";
+  //   //     setLoading(true);
+  //   //let url = "http://localhost:3000";
+  //   //let url = "https://avn-ready-backend-app-8eg86.ondigitalocean.app"; // for production
+  //   let url = "https://arlene-app.com";
+  //   let headersList = {
+  //     Accept: "*/*",
+  //     "Content-Type": "application/x-www-form-urlencoded",
+  //   };
+  //   await fetch(`${url}/getcsrf`, {
+  //     method: "POST",
+  //     credentials: "include", // to send HTTP only cookies
+  //     headers: headersList,
+  //   })
+  //     .then((response) => response.json())
+  //     .then((response) => {
+  //       //        setLoading(false);
+  //       // console.log(response);
+  //       console.log("this is it: ", response.csrfToken);
+  //       token = response.csrfToken;
+  //     })
+  //     .catch((error) => {
+  //       console.log("error - ", error.message);
+  //     });
+  //   return token;
+  // };
 
   useEffect(() => {
     // console.log("User: ", user);
@@ -141,22 +153,25 @@ export const AccountDataProvider = ({ children }) => {
     // };
 
     const getAccountData = async () => {
-      let token = await getToken();
-      console.log("Getting userdata - Token: ", { token }.token);
-      //     setLoading(true);
+//      let token = await getToken();
+//      console.log("Getting userdata - Token: ", { token }.token);
+const token = await getAccessTokenSilently();
+//     setLoading(true);
       let url = "http://localhost:3000";
       //let url = "https://avn-ready-backend-app-8eg86.ondigitalocean.app"; // for production
       //      let bodyContent = `username=${username}`;
-      let headersList = {
-        Accept: "*/*",
-        "Content-Type": "application/x-www-form-urlencoded",
-        "X-Csrf-Token": token,
-      };
-      await fetch(`${url}/getaccountdata`, {
+      // let headersList = {
+      //   Accept: "*/*",
+      //   "Content-Type": "application/x-www-form-urlencoded",
+      //   "X-Csrf-Token": token,
+      // };
+      await fetch(`${apiOrigin}/getaccountdata`, {
         method: "POST",
         credentials: "include", // to send HTTP only cookies
         //        body: bodyContent,
-        headers: headersList,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       })
         .then((response) => response.json())
         .then((r) => {

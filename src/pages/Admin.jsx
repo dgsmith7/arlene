@@ -1,57 +1,34 @@
 import { useState, useEffect } from "react";
+import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
+import { getConfig } from "../config";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Spinner from "../components/Spinner";
+import Loading from "./Loading";
 
-const Admin = () => {
+export const Admin = () => {
   const [userList, setUserList] = useState([]);
   const [loading, setLoading] = useState(false);
+  const {
+    apiOrigin = "https://auth3-backend-e28n6.ondigitalocean.app",
+    audience,
+  } = getConfig();
+
+  const { getAccessTokenSilently } = useAuth0();
 
   useEffect(() => {
-    const getToken = async () => {
-      let token = "";
-      setLoading(true);
-      //let url = "http://localhost:3000";
-      //let url = "https://avn-ready-backend-app-8eg86.ondigitalocean.app"; // for production
-      let url = "https://arlene-app.com";
-      let headersList = {
-        Accept: "*/*",
-        "Content-Type": "application/x-www-form-urlencoded",
-      };
-      await fetch(`${url}/getcsrf`, {
-        method: "POST",
-        credentials: "include", // to send HTTP only cookies
-        headers: headersList,
-      })
-        .then((response) => response.json())
-        .then((response) => {
-          setLoading(false);
-          console.log(response);
-          console.log("this is it: ", response.csrfToken);
-          token = response.csrfToken;
-        })
-        .catch((error) => {
-          console.log("error - ", error.message);
-        });
-      return token;
-    };
-
     async function getList() {
-      let token = await getToken();
+      const token = await getAccessTokenSilently();
       console.log("Getting list - Token: ", { token }.token);
       setLoading(true);
       //let url = "http://localhost:3000";
       //let url = "https://avn-ready-backend-app-8eg86.ondigitalocean.app"; // for production
-      let url = "https://arlene-app.com";
-      let headersList = {
-        Accept: "*/*",
-        "Content-Type": "application/x-www-form-urlencoded",
-        "X-Csrf-Token": token,
-      };
-      await fetch(`${url}/accountList`, {
+      //let url = "https://arlene-app.com";
+      await fetch(`${apiOrigin}/accountList`, {
         method: "POST",
-        credentials: "include", // to send HTTP only cookies
-        headers: headersList,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       })
         .then((response) => response.json())
         .then((r) => {
@@ -124,4 +101,6 @@ const Admin = () => {
   );
 };
 
-export default Admin;
+export default withAuthenticationRequired(Admin, {
+  onRedirecting: () => <Loading />,
+});
