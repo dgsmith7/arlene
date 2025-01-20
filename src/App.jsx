@@ -24,10 +24,12 @@ function App() {
   const { isLoading, error } = useAuth0();
 
   if (error) {
+    console.log("Error...");
     return <div>Oops... {error.message}</div>;
   }
 
   if (isLoading) {
+    console.log("Loading...");
     return <Loading />;
   }
 

@@ -14,7 +14,7 @@ const providerConfig = {
   clientId: config.clientId,
   //  onRedirectCallback,
   authorizationParams: {
-    redirect_uri: "https://arlene-app.com/",
+    redirect_uri: "https://arlene-app.com",
     ...(config.audience ? { audience: config.audience } : null),
   },
 };
