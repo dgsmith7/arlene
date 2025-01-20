@@ -1,4 +1,5 @@
-import { Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+//import { Routes, Route } from "react-router-dom";
 //import { AuthProvider } from "./hooks/useAuth";
 import { useAuth0 } from "@auth0/auth0-react";
 import Loading from "./components/Loading";
@@ -36,15 +37,16 @@ function App() {
   return (
     //    <AuthProvider>
     <AccountDataProvider>
-      <Routes errorElement={<ErrorPage />}>
-        <Route path="/" element={<Splash />} />
-        <Route path="/login" element={<Login />} />
-        {/* <Route path="/signup" element={<Signup />} />
+      <Router>
+        <Routes errorElement={<ErrorPage />}>
+          <Route path="/" element={<Splash />} />
+          <Route path="/login" element={<Login />} />
+          {/* <Route path="/signup" element={<Signup />} />
           <Route path="/forgot" element={<Forgot />} />
           <Route path="/reset/:token" element={<Reset />} /> */}
-        <Route path="/logout" element={<Logout />} />{" "}
-        <Route path="/about" element={<About />} />{" "}
-        {/* <Route
+          <Route path="/logout" element={<Logout />} />{" "}
+          <Route path="/about" element={<About />} />{" "}
+          {/* <Route
             path="/basic"
             element={
               <BasicRoute>
@@ -52,31 +54,32 @@ function App() {
               </BasicRoute>
             }
           /> */}
-        <Route
-          path="/chatpage"
-          element={
-            <BasicRoute>
-              <ChatPage />
-            </BasicRoute>
-          }
-        />
-        <Route
-          path="/profile"
-          element={
-            <BasicRoute>
-              <Profile />
-            </BasicRoute>
-          }
-        />
-        <Route
-          path="/admin"
-          element={
-            <AdminRoute>
-              <Admin />
-            </AdminRoute>
-          }
-        />
-      </Routes>
+          <Route
+            path="/chatpage"
+            element={
+              <BasicRoute>
+                <ChatPage />
+              </BasicRoute>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <BasicRoute>
+                <Profile />
+              </BasicRoute>
+            }
+          />
+          <Route
+            path="/admin"
+            element={
+              <AdminRoute>
+                <Admin />
+              </AdminRoute>
+            }
+          />
+        </Routes>
+      </Router>
     </AccountDataProvider>
     //    </AuthProvider>
   );
