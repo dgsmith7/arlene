@@ -102,7 +102,7 @@ export const AccountDataProvider = ({ children }) => {
   // };
 
   useEffect(() => {
-    // console.log("User: ", user);
+    console.log("User: ", user);
     const chooseAvatar = (choice) => {
       switch (choice) {
         case "pilot":
@@ -224,6 +224,7 @@ export const AccountDataProvider = ({ children }) => {
   return (
     <AccountDataContext.Provider value={value}>
       {children}
+      {console.log("hook")}
     </AccountDataContext.Provider>
   );
 };

@@ -38,15 +38,16 @@ function App() {
     //    <AuthProvider>
     <AccountDataProvider>
       <Router>
-        <Routes errorElement={<ErrorPage />}>
-          <Route path="/" element={<Splash />} />
-          <Route path="/login" element={<Login />} />
-          {/* <Route path="/signup" element={<Signup />} />
+        <SnackbarProvider>
+          <Routes errorElement={<ErrorPage />}>
+            <Route path="/" element={<Splash />} />
+            <Route path="/login" element={<Login />} />
+            {/* <Route path="/signup" element={<Signup />} />
           <Route path="/forgot" element={<Forgot />} />
           <Route path="/reset/:token" element={<Reset />} /> */}
-          <Route path="/logout" element={<Logout />} />{" "}
-          <Route path="/about" element={<About />} />{" "}
-          {/* <Route
+            <Route path="/logout" element={<Logout />} />{" "}
+            <Route path="/about" element={<About />} />{" "}
+            {/* <Route
             path="/basic"
             element={
               <BasicRoute>
@@ -54,31 +55,32 @@ function App() {
               </BasicRoute>
             }
           /> */}
-          <Route
-            path="/chatpage"
-            element={
-              <BasicRoute>
-                <ChatPage />
-              </BasicRoute>
-            }
-          />
-          <Route
-            path="/profile"
-            element={
-              <BasicRoute>
-                <Profile />
-              </BasicRoute>
-            }
-          />
-          <Route
-            path="/admin"
-            element={
-              <AdminRoute>
-                <Admin />
-              </AdminRoute>
-            }
-          />
-        </Routes>
+            <Route
+              path="/chatpage"
+              element={
+                <BasicRoute>
+                  <ChatPage />
+                </BasicRoute>
+              }
+            />
+            <Route
+              path="/profile"
+              element={
+                <BasicRoute>
+                  <Profile />
+                </BasicRoute>
+              }
+            />
+            <Route
+              path="/admin"
+              element={
+                <AdminRoute>
+                  <Admin />
+                </AdminRoute>
+              }
+            />
+          </Routes>
+        </SnackbarProvider>
       </Router>
     </AccountDataProvider>
     //    </AuthProvider>
