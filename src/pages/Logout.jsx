@@ -15,7 +15,7 @@ const Logout = () => {
   useEffect(() => {
     logout({
       logoutParams: {
-        returnTo: "https://arlene-app.com/",
+        returnTo: "https://arlene-app.com",
       },
     });
   }, []);
