@@ -9,16 +9,16 @@ import DarkModeButton from "./DarkModeButton";
 import { NavLink } from "react-router-dom";
 //import { useAuth } from "../hooks/useAuth";
 import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
-import { useAccountData } from "../hooks/useAccountData";
+//import { useAccountData } from "../hooks/useAccountData";
 
 const Header = () => {
   const { user, isAuthenticated } = useAuth0();
-  const { avatar, userData } = useAccountData();
+  //  const { avatar, userData } = useAccountData();
   const [needsUpdate, setNeedsUpdate] = useState("false");
 
-  useEffect(() => {
-    if (userData) setNeedsUpdate(userData.scopeNeedsUpdate.toString());
-  }, [userData]);
+  // useEffect(() => {
+  //   if (userData) setNeedsUpdate(userData.scopeNeedsUpdate.toString());
+  // }, [userData]);
 
   return (
     <div className="z-10 fixed top-0 left-0 right-0">
@@ -84,17 +84,19 @@ const Header = () => {
                 >
                   <h1 className="text-xl text-black dark:text-white font-bold">
                     <Tooltip message={"Profile"} posit={"below"}>
-                      {/*user*/isAuthenticated ? (
-                        <>
-                          <img
+                      {
+                        /*user*/ isAuthenticated ? (
+                          <>
+                            {/* <img
                             className="mr-1 w-7 h-7 rounded"
                             src={avatar}
-                          ></img>
-                          {user.name/* {user.username} */}
-                        </>
-                      ) : (
-                        <CgProfile className="size-7" />
-                      )}
+                          ></img> */}
+                            {user.name /* {user.username} */}
+                          </>
+                        ) : (
+                          <CgProfile className="size-7" />
+                        )
+                      }
                     </Tooltip>
                   </h1>
                 </NavLink>
