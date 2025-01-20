@@ -87,10 +87,12 @@ const Header = () => {
                       {
                         /*user*/ isAuthenticated ? (
                           <>
-                            {/* <img
-                            className="mr-1 w-7 h-7 rounded"
-                            src={avatar}
-                          ></img> */}
+                            {
+                              <img
+                                className="mr-1 w-7 h-7 rounded"
+                                src={""}
+                              ></img>
+                            }
                             {user.name /* {user.username} */}
                           </>
                         ) : (
