@@ -27,7 +27,12 @@ function App() {
 
   if (error) {
     console.log("Error...");
-    return <div>Oops... {error.message}</div>;
+    return (
+      <div>
+        <div>Oops... {error}</div>
+        <div>Oops... {error.message}</div>
+      </div>
+    );
   }
 
   if (isLoading) {
