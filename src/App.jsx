@@ -42,9 +42,9 @@ function App() {
 
   return (
     //    <AuthProvider>
-    <Router>
-      <AccountDataProvider>
-        <SnackbarProvider>
+    <AccountDataProvider>
+      <SnackbarProvider>
+        <Router>
           <Routes errorElement={<ErrorPage />}>
             <Route path="/" element={<Splash />} />
             <Route path="/login" element={<Login />} />
@@ -86,9 +86,9 @@ function App() {
               }
             />
           </Routes>
-        </SnackbarProvider>
-      </AccountDataProvider>
-    </Router>
+        </Router>
+      </SnackbarProvider>
+    </AccountDataProvider>
     //    </AuthProvider>
   );
 }
