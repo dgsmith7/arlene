@@ -6,21 +6,21 @@ import { useEffect, useState } from "react";
 //import Footer from "../components/Footer";
 //import Spinner from "../components/Spinner";
 //import { Link } from "react-router-dom";
-import { useSnackbar } from "notistack";
+//import { useSnackbar } from "notistack";
 // import { useNavigate } from "react-router-dom";
 
 export const Login = () => {
   const { loginWithRedirect } = useAuth0();
 
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [privileges, setPrivileges] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [twoFACode, setTwoFACode] = useState("");
-  const [oneFACompleted, setOneFACompleted] = useState(false);
+  // const [username, setUsername] = useState("");
+  // const [password, setPassword] = useState("");
+  // const [privileges, setPrivileges] = useState("");
+  // const [loading, setLoading] = useState(false);
+  // const [twoFACode, setTwoFACode] = useState("");
+  // const [oneFACompleted, setOneFACompleted] = useState(false);
 
   //  const { login } = useAuth();
-  const { enqueueSnackbar } = useSnackbar();
+  //const { enqueueSnackbar } = useSnackbar();
   //  const { user } = useAuth();
   //  const navigate = useNavigate();
 
