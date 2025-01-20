@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 //import { AuthProvider } from "./hooks/useAuth";
 import { useAuth0 } from "@auth0/auth0-react";
 import Loading from "./components/Loading";
+import { SnackbarProvider } from "notistack";
 
 import { AccountDataProvider } from "./hooks/useAccountData";
 import Login from "./pages/Login";
