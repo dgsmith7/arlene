@@ -50,10 +50,10 @@ export const AccountDataProvider = ({ children }) => {
       headers: {
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({
+      body: {
         fields: fieldArr,
         data: newDataObjectArr,
-      }),
+      },
     })
       .then((response) => response.json())
       .then((r) => {
