@@ -154,6 +154,7 @@ export const AccountDataProvider = ({ children }) => {
     // };
 
     const callApi = async () => {
+      let url = "https://avn-ready-backend-app-8eg86.ondigitalocean.app"; // for production
       try {
         const token = await getAccessTokenSilently();
         console.log(`${url}/external with ${token}`);
