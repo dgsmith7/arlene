@@ -9,7 +9,6 @@ const Index = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log("logged in? -> ", isAuthenticated);
     if (isAuthenticated) navigate("/profile");
   });
 

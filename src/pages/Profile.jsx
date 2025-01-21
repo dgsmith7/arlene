@@ -8,39 +8,54 @@ import IndivUserData from "../components/IndivUserData";
 import { useAccountData } from "../hooks/useAccountData";
 import UpdateProfile from "../components/UpdateProfile";
 import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
+import Loading from "../componets/Loading";
+import { getConfig } from "../config";
 
 const Profile = () => {
   // const { user } = useAuth();
   const { user } = useAuth0();
   const { newUser } = useAccountData();
 
+  const {
+    apiOrigin = "https://auth3-backend-e28n6.ondigitalocean.app",
+    audience,
+  } = getConfig();
+
+  const { getAccessTokenSilently } = useAuth0();
+
   const handleRegister = async () => {
     //    e.preventDefault();
-    setLoading(true);
+    //setLoading(true);
+    const token = await getAccessTokenSilently();
 
     //let url = "http://localhost:3000";
     let url = "https://avn-ready-backend-app-8eg86.ondigitalocean.app"; // for production
 
     // Request to your backend to authenticate the user
-    let headersList = {
-      Accept: "*/*",
-      "Content-Type": "application/json",
-    };
+    // let headersList = {
+    //   Accept: "*/*",
+    //   "Content-Type": "application/json",
+    // };
 
-    let bodyContent = {
-      username: user.name,
-      email: user.email,
-    };
+    // let bodyContent = {
+    //   username: user.name,
+    //   email: user.email,
+    // };
 
     await fetch(`${url}/register`, {
       method: "POST",
       //credentials: "include", // to send HTTP only cookies
-      body: bodyContent,
-      headers: headersList,
+      body: JSON.stringify({
+        username: user.name,
+        email: user.email,
+      }),
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     })
       .then((response) => response.json())
       .then((response) => {
-        setLoading(false);
+        //setLoading(false);
         if (response.message != "Successfully registered.") {
           console.log("Signing up:", response.message, response.err);
           enqueueSnackbar("Invalid or duplicate username or email", {

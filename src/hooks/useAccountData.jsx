@@ -196,7 +196,7 @@ export const AccountDataProvider = ({ children }) => {
 
     if (user != null) {
       try {
-        console.log("this info:", user, typeof user);
+        console.log("user not null:", user, typeof user);
 
         getAccountData();
 
