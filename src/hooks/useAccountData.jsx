@@ -157,6 +157,7 @@ export const AccountDataProvider = ({ children }) => {
       //      let token = await getToken();
       //      console.log("Getting userdata - Token: ", { token }.token);
       const token = await getAccessTokenSilently();
+      console.log("retrieving account data.");
       //     setLoading(true);
       //let url = "http://localhost:3000";
       let url = "https://avn-ready-backend-app-8eg86.ondigitalocean.app"; // for production
