@@ -34,6 +34,7 @@ const Header = () => {
               </Tooltip>
             </h1>
           </NavLink>
+          {isAuthenticated ? user.name : "Yo Mama"}
         </div>
         <div className="flex items-center">
           <ul className="flex items-center space-x-6">

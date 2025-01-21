@@ -164,7 +164,7 @@ export const Login = () => {
     loginWithRedirect();
   }, []);
 
-  return <></>;
+  return <>{console.log("nope")}</>;
 };
 
 //   return (

@@ -22,21 +22,17 @@ import BasicRoute from "./components/BasicRoute";
 import AdminRoute from "./components/AdminRoute";
 import "./index.css";
 
-function App() {
+const App = () => {
   const { isLoading, error } = useAuth0();
 
   if (error) {
-    console.log("Error...");
-    return (
-      <div>
-        <div>Oops... {error}</div>
-        <div>Oops... {error.message}</div>
-      </div>
-    );
+    {
+      console.log("err - ", error);
+    }
+    return <div>Oops... {error.message}</div>;
   }
 
   if (isLoading) {
-    console.log("Loading...");
     return <Loading />;
   }
 
@@ -91,6 +87,6 @@ function App() {
     </AccountDataProvider>
     //    </AuthProvider>
   );
-}
+};
 
 export default App;
