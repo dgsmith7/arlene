@@ -8,7 +8,7 @@ import IndivUserData from "../components/IndivUserData";
 import { useAccountData } from "../hooks/useAccountData";
 import UpdateProfile from "../components/UpdateProfile";
 import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
-import Loading from "../componets/Loading";
+import Loading from "../components/Loading";
 import { getConfig } from "../config";
 
 const Profile = () => {
