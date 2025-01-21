@@ -15,7 +15,7 @@ const providerConfig = {
   //  onRedirectCallback,
   authorizationParams: {
     //redirect_uri: "http://localhost:5173",
-    redirect_uri: "https://arlene-app.com",
+    redirect_uri: "https://aviation-readiness-app-sdbks.ondigitalocean.app",
     ...(config.audience ? { audience: config.audience } : null),
   },
 };
