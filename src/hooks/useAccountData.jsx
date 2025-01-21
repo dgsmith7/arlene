@@ -158,8 +158,8 @@ export const AccountDataProvider = ({ children }) => {
       //      console.log("Getting userdata - Token: ", { token }.token);
       const token = await getAccessTokenSilently();
       //     setLoading(true);
-      let url = "http://localhost:3000";
-      //let url = "https://avn-ready-backend-app-8eg86.ondigitalocean.app"; // for production
+      //let url = "http://localhost:3000";
+      let url = "https://avn-ready-backend-app-8eg86.ondigitalocean.app"; // for production
       //      let bodyContent = `username=${username}`;
       // let headersList = {
       //   Accept: "*/*",
@@ -168,7 +168,7 @@ export const AccountDataProvider = ({ children }) => {
       // };
       await fetch(`${apiOrigin}/getaccountdata`, {
         method: "POST",
-        credentials: "include", // to send HTTP only cookies
+        //credentials: "include", // to send HTTP only cookies
         //        body: bodyContent,
         headers: {
           Authorization: `Bearer ${token}`,
