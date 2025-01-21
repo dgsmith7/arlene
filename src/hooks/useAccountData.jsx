@@ -153,6 +153,25 @@ export const AccountDataProvider = ({ children }) => {
     //   return token;
     // };
 
+    const callApi = async () => {
+      try {
+        const token = await getAccessTokenSilently();
+        console.log(`${url}/external with ${token}`);
+        const response = await fetch(`${url}/external`, {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        const responseData = await response.json();
+
+        console.log(responseData);
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
+
     const getAccountData = async () => {
       //      let token = await getToken();
       //      console.log("Getting userdata - Token: ", { token }.token);
@@ -198,7 +217,7 @@ export const AccountDataProvider = ({ children }) => {
     if (user != null) {
       try {
         console.log("user not null:", user, typeof user);
-
+        callApi();
         getAccountData();
 
         //      enqueueSnackbar("Data read successfully", { variant: "success" });
